@@ -3,15 +3,11 @@ class Invader {
     
     field int x, y; // screen coordinates of the invader
     field int location; // mapped memory location of x,y coordinates
-    field int width; // width and heigh, maybe necessary for collisions
-    field int height;
 
     /** Constructs a new invader with the given location */
     constructor Invader new(int Ax, int Ay) {
         let x = Ax;
         let y = Ay;
-        let width = 16;
-        let height = 16;
         let location = (32 * y) + (x / 16);
         do draw(location);
         return this;
