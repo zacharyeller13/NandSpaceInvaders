@@ -1,0 +1,8 @@
+class Main {
+    function void main() {
+        var Invader invader;
+        let invader = Invader.new(10, 20);
+        do invader.dispose();
+        return;
+    }
+}
