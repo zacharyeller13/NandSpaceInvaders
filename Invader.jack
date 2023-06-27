@@ -9,7 +9,7 @@ class Invader {
         let x = Ax;
         let y = Ay;
         let location = (32 * y) + (x / 16);
-        do draw(location);
+        do draw();
         return this;
     }
 
@@ -20,7 +20,7 @@ class Invader {
     }
 
     /** Draws this invader on the screen */
-    method void draw(int location) {
+    method void draw() {
         var int memAddress;
         let memAddress = 16384+location;
         do Memory.poke(memAddress+0, 2016);
@@ -36,8 +36,7 @@ class Invader {
         return;
     }
 
-    /** Erases invader from the screen */
-    method void destroy() {
+    method void erase() {
         var int memAddress;
         let memAddress = 16384+location;
         do Memory.poke(memAddress+0, 0);
@@ -49,7 +48,26 @@ class Invader {
         do Memory.poke(memAddress+192, 0);
         do Memory.poke(memAddress+224, 0);
         do Memory.poke(memAddress+256, 0);
+        return;
+    }
+
+    /** Erases invader from the screen and deallocates */
+    method void destroy() {
+        do erase();
         do dispose();
+        return;
+    }
+
+    /** Moves invader down at an angle */
+    method void move() {
+        // Check that has not reached the bottom of the screen
+        if (y < 511) {
+            do erase();
+            let x = x + 16;
+            let y = y + 2;
+            let location = (32 * y) + (x / 16);
+            do draw();
+        }
         return;
     }
 }
