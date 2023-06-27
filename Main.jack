@@ -1,17 +1,22 @@
 class Main {
     function void main() {
         var Invader invader;
+        var Invader invader2;
         var int i;
+        do Invader.init();
         let invader = Invader.new(10, 10);
+        let invader2 = Invader.new(100, 100);
         
-        let i = 10;
+        let i = 100;
         while (i > 0) {
             do invader.move();
+            do invader2.move();
             let i = i - 1;
-            do Sys.wait(1000);
+            do Sys.wait(500);
         }
 
         do invader.destroy();
+        do invader2.destroy();
         return;
     }
 }
