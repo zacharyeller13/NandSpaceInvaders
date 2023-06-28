@@ -1,5 +1,6 @@
 /** Implements an invader */
-class Invader {
+class Invader 
+{
     
     static int WIDTH, HEIGHT; // sprite width and height
     field int x, y; // screen coordinates of the invader
@@ -7,14 +8,16 @@ class Invader {
     field int location; // mapped memory location of x,y coordinates
 
     /** Initializes the Invader class for static vars */
-    function void init() {
+    function void init() 
+    {
         let WIDTH = 16;
         let HEIGHT = 9;
         return;
     }
 
     /** Constructs a new invader with the given location */
-    constructor Invader new(int Ax, int Ay) {
+    constructor Invader new(int Ax, int Ay) 
+    {
         let x = Ax;
         let y = Ay;
         let direction = 1;
@@ -24,13 +27,15 @@ class Invader {
     }
 
     /** Disposes the Invader */
-    method void dispose() {
+    method void dispose() 
+    {
         do Memory.deAlloc(this);
         return;
     }
 
     /** Draws this invader on the screen */
-    method void draw() {
+    method void draw() 
+    {
         var int memAddress;
         let memAddress = 16384+location;
         do Memory.poke(memAddress+0, 2016);
@@ -48,7 +53,8 @@ class Invader {
 
     /** Erases invader from screen
       * used in both destroying and moving */
-    method void erase() {
+    method void erase() 
+    {
         var int memAddress;
         let memAddress = 16384+location;
         do Memory.poke(memAddress+0, 0);
@@ -64,19 +70,21 @@ class Invader {
     }
 
     /** Erases invader from the screen and deallocates */
-    method void destroy() {
+    method void destroy() 
+    {
         do erase();
         do dispose();
         return;
     }
 
     /** Moves invader down at an angle */
-    method void move() {
+    method void move() 
+    {
         // Check that has not reached the bottom of the screen
         if (y < (255 - HEIGHT)) {
             do erase();
             do checkWallCollision();
-            
+
             let x = x + (WIDTH * direction);
             let y = y + 2;
             let location = (32 * y) + (x / 16);
@@ -87,14 +95,19 @@ class Invader {
 
     /** Checks for collision on walls 
       * changing direction when necessary */
-    method void checkWallCollision() {
-        if (direction = 1) {
-            if ((x + WIDTH) > 511) {
+    method void checkWallCollision() 
+    {
+        if (direction = 1) 
+        {
+            if ((x + WIDTH) > 511) 
+            {
                 do changeDirection();
             }
         }
-        else {
-            if ((x - WIDTH) < 0) {
+        else 
+        {
+            if ((x - WIDTH) < 0) 
+            {
                 do changeDirection();
             }
         }
@@ -102,9 +115,22 @@ class Invader {
     }
     
     /** Change direction if hits wall */
-    method void changeDirection() {
+    method void changeDirection() 
+    {
         let direction = direction * -1;
         return;
+    }
+
+    /** Accessor for x */
+    method int getX()
+    {
+        return x;
+    }
+
+    /** Accessor for y */
+    method int getY() 
+    {
+        return y;
     }
 
 }
