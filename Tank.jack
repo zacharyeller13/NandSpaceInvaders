@@ -79,9 +79,42 @@ class Tank
       * which key is currently pressed */
     method void move()
     {
+        do changeDirection();
+        do checkWallCollision();
+        do erase();
+        let x = x + (direction * 16);
+        do updateLocation();
+        do draw();
+        return;
+    }
+    
+    /** Checks for collision on walls 
+      * changing direction when necessary */
+    method void checkWallCollision() 
+    {
+        if (direction = 1) 
+        {
+            if ((x + WIDTH) > 511) 
+            {
+                do stop();
+            }
+        }
+        else 
+        {
+            if ((x - WIDTH) < 0) 
+            {
+                do stop();
+            }
+        }
+        return;
+    }
+    
+    /** Changes direction */
+    method void changeDirection()
+    {
         var char currentKey;
         let currentKey = Keyboard.keyPressed();
-
+    
         if (currentKey = 132)
         {
             let direction = 1;
@@ -93,48 +126,20 @@ class Tank
                let direction = -1;
             }
         }
-        
-        do checkWallCollision();
-        do erase();
-        let x = x + (direction * 16);
-        do updateLocation();
-        do draw();
-
         return;
     }
 
-    /** Checks for collision on walls 
-      * changing direction when necessary */
-    method void checkWallCollision() 
-    {
-        if (direction = 1) 
-        {
-            if ((x + WIDTH) > 511) 
-            {
-                do changeDirection();
-            }
-        }
-        else 
-        {
-            if ((x - WIDTH) < 0) 
-            {
-                do changeDirection();
-            }
-        }
-        return;
-    }
-    
-    /** Changes direction */
-    method void changeDirection()
-    {
-        let direction = direction * -1;
-        return;
-    }
-
-    /** Update the memory address location */
+    /** Updates the memory address location */
     method void updateLocation()
     {
         let location = (32 * y) + (x / 16);
+        return;
+    }
+
+    /** Stops Tank movement */
+    method void stop()
+    {
+        let direction = 0;
         return;
     }
 }
