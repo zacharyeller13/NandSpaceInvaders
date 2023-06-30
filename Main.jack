@@ -5,14 +5,10 @@ class Main
         var Tank tank;
         var Invader invader;
         do Invader.init();
+        do Bullet.init();
         let invader = Invader.new(10, 0);
         let tank = Tank.new();
-        while (true)
-        {
-            do invader.move();
-            do tank.move();
-            do Sys.wait(100);
-        }
+        do Test.doStuff(invader, tank);
         // var Invader invader2;
         // var int i;
         // let invader2 = Invader.new(100, 100);

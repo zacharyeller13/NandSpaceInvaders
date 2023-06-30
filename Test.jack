@@ -1,0 +1,17 @@
+/** Test Methods */
+class Test
+{
+    function void doStuff(Invader invader, Tank tank)
+    {
+        var Bullet bullet;
+        let bullet = tank.fire();
+        while (true)
+        {
+            do invader.move();
+            do tank.move();
+            do Sys.wait(100);
+            do bullet.move();
+        }
+        return;
+    }
+}

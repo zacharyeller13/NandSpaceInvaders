@@ -1,0 +1,85 @@
+/** Implements a bullet; as simple class
+  * to move and track bullet location */
+class Bullet 
+{
+    static int WIDTH, HEIGHT, BULLET_SPEED;
+    field int x, y; // x, y coordinates
+    field int location; // memory address location
+
+    /** Initialize the Bullet class */
+    function void init()
+    {
+        let WIDTH = 2;
+        let HEIGHT = 4;
+        let BULLET_SPEED = 2;
+        return;
+    }
+
+    /** Instantiates a bullet at x,y coordinates */
+    constructor Bullet new(int Ax, int Ay)
+    {
+        let x = Ax;
+        let y = Ay - (HEIGHT + 1);
+        let location = (32 * y) + (x / 16);
+        do draw();
+        return this;
+    }
+
+    /** Deallocates memory for the bullet */
+    method void dispose()
+    {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Draws the bullet at its x, y coordinates
+      * as determined by the location */
+    method void draw()
+    {
+        var int memAddress;
+        let memAddress = 16384 + location;
+        do Memory.poke(memAddress+0, 384);
+        do Memory.poke(memAddress+32, 384);
+        do Memory.poke(memAddress+64, 384);
+        do Memory.poke(memAddress+96, 384);
+        return;
+    }
+
+    /** Erases the bullet from the screen */
+    method void erase()
+    {
+        var int memAddress;
+        let memAddress = 16384 + location;
+        do Memory.poke(memAddress+0, 0);
+        do Memory.poke(memAddress+32, 0);
+        do Memory.poke(memAddress+64, 0);
+        do Memory.poke(memAddress+96, 0);
+        return;
+    }
+
+    /** Destroy (as in during a hit)
+      * erases and disposes of this bullet */
+    method void destroy()
+    {
+        do erase();
+        do dispose();
+        return;
+    }
+
+    /** Updates the memory address location */
+    method void updateLocation()
+    {
+        let location = (32 * y) + (x / 16);
+        return;
+    }
+
+    /** Moves this bullet straight up */
+    method void move()
+    {
+        do erase();
+        let y = y - BULLET_SPEED;
+        do updateLocation();
+        do draw();
+        return;
+    }
+}

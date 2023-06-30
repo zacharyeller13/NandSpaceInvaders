@@ -144,11 +144,11 @@ class Tank
     }
 
     /** Instantiate a Bullet and fire it straight up */
-    method void fire()
+    method Bullet fire()
     {
         var Bullet bullet;
         let bullet = Bullet.new(x, y);
-        return;
+        return bullet;
     }
 
 }
