@@ -142,4 +142,13 @@ class Tank
         let direction = 0;
         return;
     }
+
+    /** Instantiate a Bullet and fire it straight up */
+    method void fire()
+    {
+        var Bullet bullet;
+        let bullet = Bullet.new(x, y);
+        return;
+    }
+
 }
