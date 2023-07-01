@@ -1,4 +1,4 @@
-/** Implements a bullet; as simple class
+/** Implements a bullet; a simple class
   * to move and track bullet location */
 class Bullet 
 {
