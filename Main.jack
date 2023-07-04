@@ -2,23 +2,31 @@ class Main
 {
     function void main() 
     {
+        var Tank tank;
         var Invader invader;
-        var Invader invader2;
-        var int i;
         do Invader.init();
-        let invader = Invader.new(10, 10);
-        let invader2 = Invader.new(100, 100);
-        
-        while (invader2.getY() < (255 - 9) | 
-            (~(invader2.getY() = (255 - 9))))
+        let invader = Invader.new(10, 0);
+        let tank = Tank.new();
+        while (true)
         {
             do invader.move();
-            do invader2.move();
-            do Sys.wait(500);
+            do tank.move();
+            do Sys.wait(100);
         }
+        // var Invader invader2;
+        // var int i;
+        // let invader2 = Invader.new(100, 100);
+        
+        // while (invader2.getY() < (255 - 9) | 
+        //     (~(invader2.getY() = (255 - 9))))
+        // {
+        //     do invader2.move();
+        //     do Sys.wait(500);
+        // }
 
+        // do invader2.destroy();
         do invader.destroy();
-        do invader2.destroy();
+        do tank.dispose();
         return;
     }
 }
