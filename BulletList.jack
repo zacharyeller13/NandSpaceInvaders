@@ -1,0 +1,64 @@
+/** Implement a singly linked list of bullets */
+class BulletList
+{
+    field Bullet data;
+    field BulletList next;
+
+    /** Constructor the the list of bullets */
+    constructor BulletList new(Bullet car, BulletList cdr)
+    {
+        let data = car;
+        let next = cdr;
+        return this;
+    }
+
+    /** Disposes list and all items in the list */
+    method void dispose()
+    {
+        if (~(next = null))
+        {
+            do next.dispose();
+        }
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Accessors */
+    method Bullet getData() { return data; }
+    method void setData(Bullet newData) { let data = newData; return; }
+    method BulletList getNext() { return next; }
+    method void setNext(BulletList nextList) { let next = nextList; return; }
+
+    /** Move all bullets in the list; disposing of them when they exit the screen */
+    method void move()
+    {
+        var BulletList current;
+        var Bullet currentBullet;
+        var BulletList previous;
+        let current = this;
+        
+        while (~(current = null))
+        {
+            let currentBullet = current.getData();
+            do currentBullet.move();
+
+            if (currentBullet.getY() < (-Bullet.getHeight()))
+            {
+                do currentBullet.dispose();
+                if (~(previous = null))
+                {
+                    do previous.setNext(current.getNext());
+                    do current.dispose();
+                    let current = previous.getNext();
+                }
+            }
+            else
+            {
+                let previous = current;
+                let current = current.getNext();
+            }
+
+        }
+        return;
+    }
+}
