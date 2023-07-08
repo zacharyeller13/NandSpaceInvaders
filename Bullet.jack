@@ -82,4 +82,9 @@ class Bullet
         do draw();
         return;
     }
+
+    /** Accessor for this.y */
+    method int getY() { return y; }
+
+    function int getHeight() { return HEIGHT; }
 }

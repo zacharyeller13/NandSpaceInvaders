@@ -1,0 +1,45 @@
+/** Implement a singly linked list of invaders */
+class InvaderList 
+{
+    field Invader data; // current Invader
+    field InvaderList next; // next Node
+
+    /** Creates a list */
+    constructor InvaderList new(Invader car, InvaderList cdr)
+    {
+        let data = car;
+        let next = cdr;
+        return this;
+    }
+
+    /** Disposes list and all items in the list */
+    method void dispose()
+    {
+        if (~(next = null))
+        {
+            do next.dispose();
+        }
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Accessors */
+    method Invader getData() { return data; }
+    method InvaderList getNext() { return next; }
+
+    /** Move all invaders in list */
+    method void move()
+    {
+        var InvaderList current;
+        var Invader currentInvader;
+        let current = this;
+        while (~(current = null))
+        {
+            let currentInvader = current.getData();
+            do currentInvader.move();
+            let current = current.getNext();
+        }
+        return;
+    }
+
+}
