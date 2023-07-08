@@ -2,17 +2,15 @@
 class SpaceInvaderGame
 {
     field Tank tank; // Player
-    // Might need to implement a List data structure instead
-    field Array invaders; // All invaders
-    field Array bullets; // All bullets
+    field InvaderList invaders; // All invaders
+    field BulletList bullets; // All bullets
 
     constructor SpaceInvaderGame new()
     {
         let tank = Tank.new();
         do Invader.init();
         do Bullet.init();
-        let invaders = Array.new(1);
-        let invaders[0] = Invader.new(0,0);
+        let invaders = InvaderList.new(Invader.new(1,1), null);
         return this;
     }
 
@@ -26,17 +24,37 @@ class SpaceInvaderGame
         return;
     }
 
-    /** Accessor for tank; for testing */
-    method Tank getTank()
+    /** Accessors for testing */
+    method Tank getTank() { return tank; }
+    method InvaderList getInvaders() { return invaders; }
+    method BulletList getBullets() { return bullets; }
+    method void setBullets(BulletList newBullets) { let bullets = newBullets; return; }
+
+    /** Update position of all sprites */
+    method void updatePositions()
     {
-        return tank;
+        do tank.move();
+        do invaders.move();
+        do bullets.move();
+        return;
     }
 
-    /** Accessor for invaders; for testing */
-    method Invader getInvader()
+    /** Check collision between all bullets and all invaders
+      * To find hits */
+    method void checkCollisions()
     {
-        return invaders[0];
+        // TODO: Check collision between all bullets and all Invaders
+        return;
     }
 
-    // TODO: Check collision between all bullets and all Invaders
+    /** Check a collision between 1 bullet and 1 invader */
+    function boolean checkCollision(Bullet bullet, Invader invader)
+    {
+        // TODO: check collisoin between one bullet and invader
+        return false;
+    }
+
+    // TODO: Run game infinitely until a spaceship lands signifiying a loss
+
+    // TODO: Display a loss message
 }
