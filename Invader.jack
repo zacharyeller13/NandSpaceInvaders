@@ -14,6 +14,10 @@ class Invader
         return;
     }
 
+    /** Class-level Accessors */
+    function int getWidth() { return WIDTH; }
+    function int getHeight() { return HEIGHT; }
+
     /** Constructs a new invader with the given location */
     constructor Invader new(int Ax, int Ay) 
     {
@@ -31,6 +35,10 @@ class Invader
         do Memory.deAlloc(this);
         return;
     }
+
+    /** Instance-level Accessors */
+    method int getX() { return x; }
+    method int getY() { return y; }
 
     /** Draws this invader on the screen */
     method void draw() 
@@ -118,17 +126,5 @@ class Invader
     {
         let direction = direction * -1;
         return;
-    }
-
-    /** Accessor for x */
-    method int getX()
-    {
-        return x;
-    }
-
-    /** Accessor for y */
-    method int getY() 
-    {
-        return y;
     }
 }
