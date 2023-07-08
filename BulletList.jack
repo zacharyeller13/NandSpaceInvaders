@@ -42,6 +42,7 @@ class BulletList
             let currentBullet = current.getData();
             do currentBullet.move();
 
+            // Exiting screen - dispose and shift list up
             if (currentBullet.getY() < (-Bullet.getHeight()))
             {
                 do currentBullet.dispose();

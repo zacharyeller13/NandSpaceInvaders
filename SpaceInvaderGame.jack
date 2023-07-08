@@ -37,4 +37,6 @@ class SpaceInvaderGame
     {
         return invaders[0];
     }
+
+    // TODO: Check collision between all bullets and all Invaders
 }
