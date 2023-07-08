@@ -23,7 +23,7 @@ class Bullet
     constructor Bullet new(int Ax, int Ay)
     {
         let x = Ax;
-        let y = Ay - (HEIGHT + 1);
+        let y = Ay;
         let location = (32 * y) + (x / 16);
         do draw();
         return this;

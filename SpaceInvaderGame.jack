@@ -10,7 +10,7 @@ class SpaceInvaderGame
         let tank = Tank.new();
         do Invader.init();
         do Bullet.init();
-        let invaders = InvaderList.new(Invader.new(1,1), null);
+        let invaders = InvaderList.new(Invader.new(200,0), null);
         return this;
     }
 
@@ -47,11 +47,41 @@ class SpaceInvaderGame
         return;
     }
 
-    /** Check a collision between 1 bullet and 1 invader */
+    /** Check a collision between 1 bullet and 1 invader 
+      * using simple bounding box collision as I understand it 
+      * see Intelligent 2D Collision and Pixel Perfect Precision on gamedev.net */
     function boolean checkCollision(Bullet bullet, Invader invader)
     {
-        // TODO: check collisoin between one bullet and invader
-        return false;
+        // Set up bounding boxes
+        var int bulletTop, bulletBottom, bulletLeft, bulletRight;
+        var int invaderTop, invaderBottom, invaderLeft, invaderRight;
+        let bulletTop = bullet.getY();
+        let bulletLeft = bullet.getX() + 7;
+        let bulletBottom = bullet.getY() + Bullet.getHeight();
+        let bulletRight = bullet.getX() + 7 + Bullet.getWidth();
+        let invaderTop = invader.getY();
+        let invaderLeft = invader.getX();
+        let invaderBottom = invader.getY() + Invader.getHeight();
+        let invaderRight = invader.getX() + Invader.getWidth();
+
+        // Check horizontal collision
+        if ((bulletLeft > invaderRight)
+            | (invaderLeft > bulletRight))
+        {
+            return false;
+        }
+
+        // Check vertical collision
+        // Less than since 0,0 starts in top right corner
+        if ((bulletBottom < invaderTop)
+            | (invaderBottom < bulletTop))
+        {
+            return false;
+        }
+        //testing
+        do bullet.destroy();
+        do invader.destroy();
+        return true;
     }
 
     // TODO: Run game infinitely until a spaceship lands signifiying a loss
