@@ -56,7 +56,7 @@ class SpaceInvaderGame
         var int bulletTop, bulletBottom, bulletLeft, bulletRight;
         var int invaderTop, invaderBottom, invaderLeft, invaderRight;
         let bulletTop = bullet.getY();
-        let bulletLeft = bullet.getX() + 7;
+        let bulletLeft = bullet.getX() + 7; // 7 being the center of the sprite
         let bulletBottom = bullet.getY() + Bullet.getHeight();
         let bulletRight = bullet.getX() + 7 + Bullet.getWidth();
         let invaderTop = invader.getY();
@@ -78,9 +78,6 @@ class SpaceInvaderGame
         {
             return false;
         }
-        //testing
-        do bullet.destroy();
-        do invader.destroy();
         return true;
     }
 
