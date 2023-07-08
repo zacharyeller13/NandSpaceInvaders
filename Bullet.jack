@@ -15,6 +15,10 @@ class Bullet
         return;
     }
 
+    /** Class-level accessors */
+    function int getWidth() { return WIDTH; }
+    function int getHeight() { return HEIGHT; }
+
     /** Instantiates a bullet at x,y coordinates */
     constructor Bullet new(int Ax, int Ay)
     {
@@ -31,6 +35,10 @@ class Bullet
         do Memory.deAlloc(this);
         return;
     }
+
+    /** Instance-level accessors */
+    method int getX() { return x; }
+    method int getY() { return y; }
 
     /** Draws the bullet at its x, y coordinates
       * as determined by the location */
