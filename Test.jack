@@ -1,0 +1,32 @@
+/** Test Methods */
+class Test
+{
+    function void doStuff(Invader invader, Tank tank, SpaceInvaderGame game)
+    {
+        var Bullet bullet;
+        var InvaderList invaders;
+        var BulletList bullets;
+        var int i;
+        do Bullet.init();
+        do Invader.init();
+        let bullet = tank.fire();
+        let invaders = InvaderList.new(invader, null);
+        let bullets = BulletList.new(bullet, null);
+        let i = 0;
+        while (true)
+        {
+            do invaders.move();
+            do tank.move();
+            do Sys.wait(100);
+            do bullets.move();
+            let i = i + 1;
+            if (i = 2)
+            {
+                let i = 0;
+                // let invaders = InvaderList.new(Invader.new(10,10), invaders);
+                let bullets = BulletList.new(tank.fire(), bullets);
+            }
+        }
+        return;
+    }
+}

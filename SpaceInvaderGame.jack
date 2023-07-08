@@ -1,0 +1,42 @@
+/** Implements the Game logic */
+class SpaceInvaderGame
+{
+    field Tank tank; // Player
+    // Might need to implement a List data structure instead
+    field Array invaders; // All invaders
+    field Array bullets; // All bullets
+
+    constructor SpaceInvaderGame new()
+    {
+        let tank = Tank.new();
+        do Invader.init();
+        do Bullet.init();
+        let invaders = Array.new(1);
+        let invaders[0] = Invader.new(0,0);
+        return this;
+    }
+
+    /** Dispose of game and all it's component parts */
+    method void dispose()
+    {
+        do tank.dispose();
+        do invaders.dispose();
+        do bullets.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Accessor for tank; for testing */
+    method Tank getTank()
+    {
+        return tank;
+    }
+
+    /** Accessor for invaders; for testing */
+    method Invader getInvader()
+    {
+        return invaders[0];
+    }
+
+    // TODO: Check collision between all bullets and all Invaders
+}

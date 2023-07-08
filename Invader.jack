@@ -1,8 +1,7 @@
 /** Implements an invader */
 class Invader 
 {
-    
-    static int WIDTH, HEIGHT; // sprite width and height
+    static int WIDTH, HEIGHT; // sprite width and height constants
     field int x, y; // screen coordinates of the invader
     field int direction; // 1 or -1 for right vs left
     field int location; // mapped memory location of x,y coordinates
@@ -128,5 +127,4 @@ class Invader
         let direction = direction * -1;
         return;
     }
-
 }
