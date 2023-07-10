@@ -49,6 +49,7 @@ class BulletList
                 if (~(previous = null))
                 {
                     do previous.setNext(current.getNext());
+                    do current.setNext(null);
                     do current.dispose();
                     let current = previous.getNext();
                 }
