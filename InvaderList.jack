@@ -26,6 +26,7 @@ class InvaderList
     /** Accessors */
     method Invader getData() { return data; }
     method InvaderList getNext() { return next; }
+    method void setNext(InvaderList nextList) { let next = nextList; return; }
 
     /** Move all invaders in list */
     method void move()
