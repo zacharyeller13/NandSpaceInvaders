@@ -27,6 +27,7 @@ class SpaceInvaderGame
     /** Accessors for testing */
     method Tank getTank() { return tank; }
     method InvaderList getInvaders() { return invaders; }
+    method void setInvaders(InvaderList newInvaders) { let invaders = newInvaders; return; }
     method BulletList getBullets() { return bullets; }
     method void setBullets(BulletList newBullets) { let bullets = newBullets; return; }
 
