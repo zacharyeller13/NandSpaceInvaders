@@ -35,6 +35,7 @@ class BulletList
         var BulletList current;
         var Bullet currentBullet;
         var BulletList previous;
+        var BulletList temp;
         let current = this;
         
         while (~(current = null))
@@ -45,13 +46,9 @@ class BulletList
             // Exiting screen - dispose and shift list up
             if (currentBullet.getY() < (-Bullet.getHeight()))
             {
-                do currentBullet.dispose();
-                if (~(previous = null))
-                {
-                    do previous.setNext(current.getNext());
-                    do current.dispose();
-                    let current = previous.getNext();
-                }
+                let temp = current.getNext();
+                do current.remove(previous);
+                let current = temp;
             }
             else
             {
@@ -60,6 +57,20 @@ class BulletList
             }
 
         }
+        return;
+    }
+    
+    /** Remove bullet from the list */
+    method void remove(BulletList previous)
+    {
+        if (~(previous = null))
+        {
+            do previous.setNext(next);
+        }
+
+        do data.destroy();
+        let next = null;
+        do dispose();
         return;
     }
 }
