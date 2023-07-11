@@ -25,7 +25,6 @@ class BulletList
 
     /** Accessors */
     method Bullet getData() { return data; }
-    method void setData(Bullet newData) { let data = newData; return; }
     method BulletList getNext() { return next; }
     method void setNext(BulletList nextList) { let next = nextList; return; }
 
@@ -35,6 +34,10 @@ class BulletList
         var BulletList current;
         var Bullet currentBullet;
         var BulletList previous;
+        var BulletList temp;
+        var BulletList head;
+
+        let head = this;
         let current = this;
         
         while (~(current = null))
@@ -45,14 +48,9 @@ class BulletList
             // Exiting screen - dispose and shift list up
             if (currentBullet.getY() < (-Bullet.getHeight()))
             {
-                do currentBullet.dispose();
-                if (~(previous = null))
-                {
-                    do previous.setNext(current.getNext());
-                    do current.setNext(null);
-                    do current.dispose();
-                    let current = previous.getNext();
-                }
+                let temp = current.getNext();
+                do head.remove(current);
+                let current = temp;
             }
             else
             {
@@ -61,6 +59,45 @@ class BulletList
             }
 
         }
+        return;
+    }
+    
+    /** Remove bullet from the list 
+      * should always be called on the head node */
+    method void remove(BulletList bulletToRemove)
+    {
+        var BulletList previous;
+        var BulletList current;
+        var Bullet currentData;
+
+        // Base case on head node
+        if (this = bulletToRemove)
+        {
+            let next = null;
+            do data.destroy();
+            do dispose();
+            return;
+        }
+
+        // Iterating through bullets to check each node
+        let previous = this;
+        let current = next;
+        while (~(current = null))
+        {
+            if (current = bulletToRemove)
+            {
+                do previous.setNext(current.getNext());
+                do current.setNext(null);
+                let currentData = current.getData();
+                do currentData.destroy();
+                do current.dispose();
+                return;
+            }
+            let previous = current;
+            let current = current.getNext();
+        }
+        // Should never reach here, but if, for some reason, the bulletToRemove is orphaned
+        // we must still return.
         return;
     }
 }

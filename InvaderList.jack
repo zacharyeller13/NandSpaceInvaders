@@ -43,4 +43,43 @@ class InvaderList
         return;
     }
 
+    /** Remove an invader from the list 
+      * should always be called on the head node */
+    method void remove(InvaderList invaderToRemove)
+    {
+        var InvaderList previous;
+        var InvaderList current;
+        var Invader currentData;
+
+        // Base case on the head node
+        if (this = invaderToRemove)
+        {
+            let next = null;
+            do data.destroy();
+            do dispose();
+            return;
+        }
+
+        // Iterating through list to check each node
+        let previous = this;
+        let current = next;
+        while (~(current = null))
+        {
+            if (current = invaderToRemove)
+            {
+                do previous.setNext(current.getNext());
+                do current.setNext(null);
+                let currentData = current.getData();
+                do currentData.destroy();
+                do current.dispose();
+                return;
+            }
+            let previous = current;
+            let current = current.getNext();
+        }
+        // Should never reach here, but if, for some reason, the invaderToRemove is orphaned
+        // we must still return.
+        return;
+    }
+
 }
