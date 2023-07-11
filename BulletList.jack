@@ -36,6 +36,9 @@ class BulletList
         var Bullet currentBullet;
         var BulletList previous;
         var BulletList temp;
+        var BulletList head;
+
+        let head = this;
         let current = this;
         
         while (~(current = null))
@@ -47,7 +50,7 @@ class BulletList
             if (currentBullet.getY() < (-Bullet.getHeight()))
             {
                 let temp = current.getNext();
-                do current.remove(previous);
+                do head.remove(current);
                 let current = temp;
             }
             else
@@ -60,17 +63,42 @@ class BulletList
         return;
     }
     
-    /** Remove bullet from the list */
-    method void remove(BulletList previous)
+    /** Remove bullet from the list 
+      * should always be called on the head node */
+    method void remove(BulletList bulletToRemove)
     {
-        if (~(previous = null))
+        var BulletList previous;
+        var BulletList current;
+        var Bullet currentData;
+
+        // Base case on head node
+        if (this = bulletToRemove)
         {
-            do previous.setNext(next);
+            let next = null;
+            do data.destroy();
+            do dispose();
+            return;
         }
 
-        do data.destroy();
-        let next = null;
-        do dispose();
+        // Iterating through bullets to check each node
+        let previous = this;
+        let current = next;
+        while (~(current = null))
+        {
+            if (current = bulletToRemove)
+            {
+                do previous.setNext(current.getNext());
+                do current.setNext(null);
+                let currentData = current.getData();
+                do currentData.destroy();
+                do current.dispose();
+                return;
+            }
+            let previous = current;
+            let current = current.getNext();
+        }
+        // Should never reach here, but if, for some reason, the bulletToRemove is orphaned
+        // we must still return.
         return;
     }
 }

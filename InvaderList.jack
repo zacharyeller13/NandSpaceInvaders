@@ -77,6 +77,8 @@ class InvaderList
             let previous = current;
             let current = current.getNext();
         }
+        // Should never reach here, but if, for some reason, the invaderToRemove is orphaned
+        // we must still return.
         return;
     }
 
