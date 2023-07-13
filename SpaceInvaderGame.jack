@@ -4,6 +4,9 @@ class SpaceInvaderGame
     field Tank tank; // Player
     field InvaderList invaders; // All invaders
     field BulletList bullets; // All bullets
+    field Renderer renderer; // To render frames
+    field boolean isGameOver;
+    field int frameNum;
 
     constructor SpaceInvaderGame new()
     {
@@ -24,19 +27,21 @@ class SpaceInvaderGame
         return;
     }
 
-    /** Accessors for testing */
+    /** Accessors */
     method Tank getTank() { return tank; }
     method InvaderList getInvaders() { return invaders; }
     method void setInvaders(InvaderList newInvaders) { let invaders = newInvaders; return; }
     method BulletList getBullets() { return bullets; }
     method void setBullets(BulletList newBullets) { let bullets = newBullets; return; }
 
-    /** Update position of all sprites */
-    method void updatePositions()
+    /** Update game state */
+    method void updateState()
     {
         do tank.move();
         do invaders.move();
         do bullets.move();
+        // TODO: Check collisions and update invaders and bullets.  Maybe do during move(); refactor out of List
+        // TODO: Check game over
         return;
     }
 
@@ -83,6 +88,10 @@ class SpaceInvaderGame
     }
 
     // TODO: Run game infinitely until a spaceship lands signifiying a loss
+    method void run()
+    {
+        return;
+    }
 
     // TODO: Display a loss message
 }
