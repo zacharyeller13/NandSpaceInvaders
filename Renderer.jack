@@ -1,0 +1,59 @@
+class Renderer
+{
+    /** Render all parts */
+    function void renderState(Tank tank, BulletList bullets, InvaderList invaders)
+    {
+        var BulletList currentBullets;
+        var Bullet currentBullet;
+        var InvaderList currentInvaders;
+        var Invader currentInvader;
+
+        let currentBullets = bullets;
+        let currentInvaders = invaders;
+
+        do Renderer.renderObject(tank.getLocation(), tank.getPixels());
+
+        while (~(currentBullets = null))
+        {
+            let currentBullet = currentBullets.getData();
+            do Renderer.renderObject(currentBullet.getLocation(), currentBullet.getPixels());
+            let currentBullets = currentBullets.getNext();
+        }
+
+        while (~(currentInvaders = null))
+        {
+            let currentInvader = currentInvaders.getData();
+            do Renderer.renderObject(currentInvader.getLocation(), currentInvader.getPixels());
+            let currentInvader = currentInvaders.getNext();
+        }
+        
+        return;
+    }
+
+    /** Render any object by passing in its memory location and its sprite as an array of pixels */
+    function void renderObject(int objectMemLocation, Array pixels)
+    {
+        var int memAddress;
+        let memAddress = 16384+objectMemLocation;
+        do Memory.poke(memAddress+0, pixels[0]);
+        do Memory.poke(memAddress+32, pixels[1]);
+        do Memory.poke(memAddress+64, pixels[2]);
+        do Memory.poke(memAddress+96, pixels[3]);
+        do Memory.poke(memAddress+128, pixels[4]);
+        do Memory.poke(memAddress+160, pixels[5]);
+        do Memory.poke(memAddress+192, pixels[6]);
+        do Memory.poke(memAddress+224, pixels[7]);
+        do Memory.poke(memAddress+256, pixels[8]);
+        do Memory.poke(memAddress+288, pixels[9]);
+        do Memory.poke(memAddress+320, pixels[10]);
+        do Memory.poke(memAddress+352, pixels[11]);
+        return;
+    }
+
+    /** Clear the screen and render a game-over message */
+    function void renderGameOver()
+    {
+        do Screen.clearScreen();
+        do Output.printString("GAME OVER");
+    }
+}
