@@ -2,17 +2,18 @@
 class SpaceInvaderGame
 {
     field Tank tank; // Player
-    // Might need to implement a List data structure instead
-    field Array invaders; // All invaders
-    field Array bullets; // All bullets
+    field InvaderList invaders; // All invaders
+    field BulletList bullets; // All bullets
+    field Renderer renderer; // To render frames
+    field boolean isGameOver;
+    field int frameNum;
 
     constructor SpaceInvaderGame new()
     {
         let tank = Tank.new();
         do Invader.init();
         do Bullet.init();
-        let invaders = Array.new(1);
-        let invaders[0] = Invader.new(0,0);
+        let invaders = InvaderList.new(Invader.new(200,0), null);
         return this;
     }
 
@@ -26,17 +27,71 @@ class SpaceInvaderGame
         return;
     }
 
-    /** Accessor for tank; for testing */
-    method Tank getTank()
+    /** Accessors */
+    method Tank getTank() { return tank; }
+    method InvaderList getInvaders() { return invaders; }
+    method void setInvaders(InvaderList newInvaders) { let invaders = newInvaders; return; }
+    method BulletList getBullets() { return bullets; }
+    method void setBullets(BulletList newBullets) { let bullets = newBullets; return; }
+
+    /** Update game state */
+    method void updateState()
     {
-        return tank;
+        do tank.move();
+        do invaders.move();
+        do bullets.move();
+        // TODO: Check collisions and update invaders and bullets.  Maybe do during move(); refactor out of List
+        // TODO: Check game over
+        return;
     }
 
-    /** Accessor for invaders; for testing */
-    method Invader getInvader()
+    /** Check collision between all bullets and all invaders
+      * To find hits */
+    method void checkCollisions()
     {
-        return invaders[0];
+        // TODO: Check collision between all bullets and all Invaders
+        return;
     }
 
-    // TODO: Check collision between all bullets and all Invaders
+    /** Check a collision between 1 bullet and 1 invader 
+      * using simple bounding box collision as I understand it 
+      * see Intelligent 2D Collision and Pixel Perfect Precision on gamedev.net */
+    function boolean checkCollision(Bullet bullet, Invader invader)
+    {
+        // Set up bounding boxes
+        var int bulletTop, bulletBottom, bulletLeft, bulletRight;
+        var int invaderTop, invaderBottom, invaderLeft, invaderRight;
+        let bulletTop = bullet.getY();
+        let bulletLeft = bullet.getX() + 7; // 7 being the center of the sprite
+        let bulletBottom = bullet.getY() + Bullet.getHeight();
+        let bulletRight = bullet.getX() + 7 + Bullet.getWidth();
+        let invaderTop = invader.getY();
+        let invaderLeft = invader.getX();
+        let invaderBottom = invader.getY() + Invader.getHeight();
+        let invaderRight = invader.getX() + Invader.getWidth();
+
+        // Check horizontal collision
+        if ((bulletLeft > invaderRight)
+            | (invaderLeft > bulletRight))
+        {
+            return false;
+        }
+
+        // Check vertical collision
+        // Less than since 0,0 starts in top right corner
+        if ((bulletBottom < invaderTop)
+            | (invaderBottom < bulletTop))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    // TODO: Run game infinitely until a spaceship lands signifiying a loss
+    method void run()
+    {
+        return;
+    }
+
+    // TODO: Display a loss message
 }

@@ -147,7 +147,7 @@ class Tank
     method Bullet fire()
     {
         var Bullet bullet;
-        let bullet = Bullet.new(x, y);
+        let bullet = Bullet.new(x, y - (Bullet.getHeight() + 1));
         return bullet;
     }
 

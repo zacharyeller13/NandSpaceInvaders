@@ -4,8 +4,7 @@ class Main
     {
         var SpaceInvaderGame game;
         let game = SpaceInvaderGame.new();
-        do Test.doStuff(game.getInvader(), game.getTank(), game);
-        do invader.destroy();
+        do Test.doStuff(game);
         return;
     }
 }
