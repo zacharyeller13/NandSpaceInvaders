@@ -55,5 +55,6 @@ class Renderer
     {
         do Screen.clearScreen();
         do Output.printString("GAME OVER");
+        return;
     }
 }
