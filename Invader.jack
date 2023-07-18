@@ -5,12 +5,14 @@ class Invader
     field int x, y; // screen coordinates of the invader
     field int direction; // 1 or -1 for right vs left
     field int location; // mapped memory location of x,y coordinates
+    field Array pixels; // Represents all pixels of the sprite
 
     /** Initializes the Invader class for static vars */
     function void init() 
     {
         let WIDTH = 16;
         let HEIGHT = 9;
+
         return;
     }
 
@@ -25,7 +27,7 @@ class Invader
         let y = Ay;
         let direction = 1;
         let location = (32 * y) + (x / 16);
-        do draw();
+        do initPixels();
         return this;
     }
 
@@ -39,22 +41,26 @@ class Invader
     /** Instance-level Accessors */
     method int getX() { return x; }
     method int getY() { return y; }
+    method int getLocation() { return location; }
+    method Array getPixels() { return pixels; }
 
-    /** Draws this invader on the screen */
-    method void draw() 
+    /** Initialize the pixels array */
+    method void initPixels()
     {
-        var int memAddress;
-        let memAddress = 16384+location;
-        do Memory.poke(memAddress+0, 2016);
-        do Memory.poke(memAddress+32, 2064);
-        do Memory.poke(memAddress+64, 4104);
-        do Memory.poke(memAddress+96, 4104);
-        do Memory.poke(memAddress+128, 32766);
-        do Memory.poke(memAddress+160, -32767);
-        do Memory.poke(memAddress+192, -32767);
-        do Memory.poke(memAddress+224, -32767);
-        do Memory.poke(memAddress+256, 32766);
-        // We only need the first 9 rows, not a full 16
+        let pixels = Array.new(12);
+        let pixels[0] = 2016;
+        let pixels[1] = 2064;
+        let pixels[2] = 4104;
+        let pixels[3] = 4104;
+        let pixels[4] = 32766;
+        let pixels[5] = -32767;
+        let pixels[6] = -32767;
+        let pixels[7] = -32767;
+        let pixels[8] = 32766;
+        let pixels[9] = 0;
+        let pixels[10] = 0;
+        let pixels[11] = 0;
+
         return;
     }
 
@@ -76,26 +82,16 @@ class Invader
         return;
     }
 
-    /** Erases invader from the screen and deallocates */
-    method void destroy() 
-    {
-        do erase();
-        do dispose();
-        return;
-    }
-
     /** Moves invader down at an angle */
     method void move() 
     {
         // Check that has not reached the bottom of the screen
         if (y < (255 - HEIGHT)) {
-            do erase();
             do checkWallCollision();
 
             let x = x + (WIDTH * direction);
             let y = y + 2;
             let location = (32 * y) + (x / 16);
-            do draw();
         }
         return;
     }
