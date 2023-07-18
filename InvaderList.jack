@@ -55,7 +55,7 @@ class InvaderList
         if (this = invaderToRemove)
         {
             let next = null;
-            do data.destroy();
+            do data.dispose();
             do dispose();
             return;
         }
@@ -70,7 +70,7 @@ class InvaderList
                 do previous.setNext(current.getNext());
                 do current.setNext(null);
                 let currentData = current.getData();
-                do currentData.destroy();
+                do currentData.dispose();
                 do current.dispose();
                 return;
             }
