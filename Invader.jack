@@ -64,24 +64,6 @@ class Invader
         return;
     }
 
-    /** Erases invader from screen
-      * used in both destroying and moving */
-    method void erase() 
-    {
-        var int memAddress;
-        let memAddress = 16384+location;
-        do Memory.poke(memAddress+0, 0);
-        do Memory.poke(memAddress+32, 0);
-        do Memory.poke(memAddress+64, 0);
-        do Memory.poke(memAddress+96, 0);
-        do Memory.poke(memAddress+128, 0);
-        do Memory.poke(memAddress+160, 0);
-        do Memory.poke(memAddress+192, 0);
-        do Memory.poke(memAddress+224, 0);
-        do Memory.poke(memAddress+256, 0);
-        return;
-    }
-
     /** Moves invader down at an angle */
     method void move() 
     {
