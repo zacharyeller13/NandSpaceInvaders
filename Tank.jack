@@ -5,6 +5,7 @@ class Tank
     field int x, y; // screen coordinates of the tank
     field int direction; // -1, 0, or 1 for right, left, at rest
     field int location; // mapped memory location of x,y coordinates
+    field Array pixels; // Sprite's pixels
 
     /** Constructs a new Tank */
     constructor Tank new() {
@@ -14,7 +15,7 @@ class Tank
         let y = 255 - HEIGHT;
         let direction = 0;
         let location = (32 * y) + (x / 16);
-        do draw();
+        do pixelsInit();
         return this;
     }
 
@@ -25,53 +26,28 @@ class Tank
         return;
     }
 
+    /** Accessors */
+    method int getX() { return x; }
+    method int getY() { return y; }
+    method int getLocation() { return location; }
+    method Array getPixels() { return pixels; }
+
     /** Draws Tank at its current screen coordinates */
-    method void draw()
+    method void pixelsInit()
     {
-        var int memAddress;
-        let memAddress = 16384+location;
-        do Memory.poke(memAddress+0, 896);
-        do Memory.poke(memAddress+32, 640);
-        do Memory.poke(memAddress+64, 640);
-        do Memory.poke(memAddress+96, 640);
-        do Memory.poke(memAddress+128, 4080);
-        do Memory.poke(memAddress+160, 4104);
-        do Memory.poke(memAddress+192, 32766);
-        do Memory.poke(memAddress+224, -32767);
-        do Memory.poke(memAddress+256, -32767);
-        do Memory.poke(memAddress+288, 32766);
-        do Memory.poke(memAddress+320, 17442);
-        do Memory.poke(memAddress+352, 15324);
-        return;
-    }
-
-    /** Erases tank from the screen
-      * used in both destroying and moving the tank */
-    method void erase()
-    {
-        var int memAddress;
-        let memAddress = 16384+location;
-        do Memory.poke(memAddress+0, 0);
-        do Memory.poke(memAddress+32, 0);
-        do Memory.poke(memAddress+64, 0);
-        do Memory.poke(memAddress+96, 0);
-        do Memory.poke(memAddress+128, 0);
-        do Memory.poke(memAddress+160, 0);
-        do Memory.poke(memAddress+192, 0);
-        do Memory.poke(memAddress+224, 0);
-        do Memory.poke(memAddress+256, 0);
-        do Memory.poke(memAddress+288, 0);
-        do Memory.poke(memAddress+320, 0);
-        do Memory.poke(memAddress+352, 0);
-        return;
-    }
-
-    /** Erases and disposes the tank
-      * only used when the player loses */
-    method void destroy()
-    {
-        do erase();
-        do dispose();
+        let pixels = Array.new(12);
+        let pixels[0] = 896;
+        let pixels[1] = 640;
+        let pixels[2] = 640;
+        let pixels[3] = 640;
+        let pixels[4] = 4080;
+        let pixels[5] = 4104;
+        let pixels[6] = 32766;
+        let pixels[7] = -32767;
+        let pixels[8] = -32767;
+        let pixels[9] = 32766;
+        let pixels[10] = 17442;
+        let pixels[11] = 15324;
         return;
     }
 
@@ -81,10 +57,8 @@ class Tank
     {
         do changeDirection();
         do checkWallCollision();
-        do erase();
         let x = x + (direction * 16);
         do updateLocation();
-        do draw();
         return;
     }
     
