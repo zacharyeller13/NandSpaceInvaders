@@ -11,6 +11,8 @@ class Renderer
         let currentBullets = bullets;
         let currentInvaders = invaders;
 
+        do Screen.clearScreen();
+
         do Renderer.renderObject(tank.getLocation(), tank.getPixels());
 
         while (~(currentBullets = null))

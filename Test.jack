@@ -15,7 +15,8 @@ class Test
         let i = 0;
         while (true)
         {
-            do game.updatePositions();
+            do game.updateState();
+            do Renderer.renderState(tank, game.getBullets(), null);
             do Sys.wait(100);
             let i = i + 1;
             if (i = 2)
