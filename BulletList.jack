@@ -74,7 +74,7 @@ class BulletList
         if (this = bulletToRemove)
         {
             let next = null;
-            do data.destroy();
+            do data.dispose();
             do dispose();
             return;
         }
@@ -89,7 +89,7 @@ class BulletList
                 do previous.setNext(current.getNext());
                 do current.setNext(null);
                 let currentData = current.getData();
-                do currentData.destroy();
+                do currentData.dispose();
                 do current.dispose();
                 return;
             }

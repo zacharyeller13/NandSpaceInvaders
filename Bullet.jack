@@ -5,6 +5,7 @@ class Bullet
     static int WIDTH, HEIGHT, BULLET_SPEED;
     field int x, y; // x, y coordinates
     field int location; // memory address location
+    field Array pixels; // All pixels of the sprite
 
     /** Initialize the Bullet class */
     function void init()
@@ -25,7 +26,7 @@ class Bullet
         let x = Ax;
         let y = Ay;
         let location = (32 * y) + (x / 16);
-        do draw();
+        do initPixels();
         return this;
     }
 
@@ -39,38 +40,19 @@ class Bullet
     /** Instance-level accessors */
     method int getX() { return x; }
     method int getY() { return y; }
+    method int getLocation() { return location; }
+    method Array getPixels() { return pixels; }
 
-    /** Draws the bullet at its x, y coordinates
-      * as determined by the location */
-    method void draw()
+    /** Initializes the pixels array */
+    method void initPixels()
     {
-        var int memAddress;
-        let memAddress = 16384 + location;
-        do Memory.poke(memAddress+0, 384);
-        do Memory.poke(memAddress+32, 384);
-        do Memory.poke(memAddress+64, 384);
-        do Memory.poke(memAddress+96, 384);
-        return;
-    }
+        let pixels = Array.new(12);
+        let pixels[0] = 384;
+        let pixels[1] = 384;
+        let pixels[2] = 384;
+        let pixels[3] = 384;
+        // The rest should be automatically initialized to 0
 
-    /** Erases the bullet from the screen */
-    method void erase()
-    {
-        var int memAddress;
-        let memAddress = 16384 + location;
-        do Memory.poke(memAddress+0, 0);
-        do Memory.poke(memAddress+32, 0);
-        do Memory.poke(memAddress+64, 0);
-        do Memory.poke(memAddress+96, 0);
-        return;
-    }
-
-    /** Destroy (as in during a hit)
-      * erases and disposes of this bullet */
-    method void destroy()
-    {
-        do erase();
-        do dispose();
         return;
     }
 
@@ -84,10 +66,8 @@ class Bullet
     /** Moves this bullet straight up */
     method void move()
     {
-        do erase();
         let y = y - BULLET_SPEED;
         do updateLocation();
-        do draw();
         return;
     }
 }
