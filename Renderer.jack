@@ -11,6 +11,8 @@ class Renderer
         let currentBullets = bullets;
         let currentInvaders = invaders;
 
+        do Screen.clearScreen();
+
         do Renderer.renderObject(tank.getLocation(), tank.getPixels());
 
         while (~(currentBullets = null))
@@ -24,7 +26,7 @@ class Renderer
         {
             let currentInvader = currentInvaders.getData();
             do Renderer.renderObject(currentInvader.getLocation(), currentInvader.getPixels());
-            let currentInvader = currentInvaders.getNext();
+            let currentInvaders = currentInvaders.getNext();
         }
         
         return;
@@ -34,19 +36,18 @@ class Renderer
     function void renderObject(int objectMemLocation, Array pixels)
     {
         var int memAddress;
+        var int i;
         let memAddress = 16384+objectMemLocation;
-        do Memory.poke(memAddress+0, pixels[0]);
-        do Memory.poke(memAddress+32, pixels[1]);
-        do Memory.poke(memAddress+64, pixels[2]);
-        do Memory.poke(memAddress+96, pixels[3]);
-        do Memory.poke(memAddress+128, pixels[4]);
-        do Memory.poke(memAddress+160, pixels[5]);
-        do Memory.poke(memAddress+192, pixels[6]);
-        do Memory.poke(memAddress+224, pixels[7]);
-        do Memory.poke(memAddress+256, pixels[8]);
-        do Memory.poke(memAddress+288, pixels[9]);
-        do Memory.poke(memAddress+320, pixels[10]);
-        do Memory.poke(memAddress+352, pixels[11]);
+        let i = 0;
+
+        while (i < 12)
+        {
+            if (~(pixels[i] = 0))
+            {
+                do Memory.poke(memAddress+(i * 32), pixels[i]);
+            }
+            let i = i + 1;
+        }
         return;
     }
 
