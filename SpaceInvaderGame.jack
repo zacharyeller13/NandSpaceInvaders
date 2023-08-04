@@ -40,6 +40,7 @@ class SpaceInvaderGame
         do tank.move();
         do invaders.move();
         do bullets.move();
+        do checkCollisions();
         // TODO: Check collisions and update invaders and bullets.  Maybe do during move(); refactor out of List
         // TODO: Check game over
         return;
@@ -49,7 +50,35 @@ class SpaceInvaderGame
       * To find hits */
     method void checkCollisions()
     {
-        // TODO: Check collision between all bullets and all Invaders
+        var BulletList remainingBullets;
+        var BulletList currentBullets;
+        var Bullet currentBullet;
+        var InvaderList currentInvaders;
+        var Invader currentInvader;
+        let currentBullets = bullets;
+        let currentInvaders = invaders;
+        
+        while (~(currentBullets = null))
+        {
+            while (~(currentInvaders = null))
+            {
+                let currentBullet = currentBullets.getData();
+                let currentInvader = currentInvaders.getData();
+
+                // Check that currentBullet and currentInvader are not null
+                // As if there was only 1 item and they were removed, it would be an empty list
+                if (~(currentBullet = null) & ~(currentInvader = null))
+                {
+                    if (~(SpaceInvaderGame.checkCollision(currentBullet, currentInvader)))
+                    {
+                        let remainingBullets = BulletList.new(currentBullet, remainingBullets);
+                    }
+                }
+                let currentInvaders = currentInvaders.getNext();
+            }
+            let currentBullets = currentBullets.getNext();
+        }
+        let bullets = remainingBullets;
         return;
     }
 

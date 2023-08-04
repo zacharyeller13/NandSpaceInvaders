@@ -27,6 +27,7 @@ class BulletList
     method Bullet getData() { return data; }
     method BulletList getNext() { return next; }
     method void setNext(BulletList nextList) { let next = nextList; return; }
+    method void setData(Bullet bullet) { let data = bullet; return; }
 
     /** Move all bullets in the list; disposing of them when they exit the screen */
     method void move()
@@ -43,19 +44,33 @@ class BulletList
         while (~(current = null))
         {
             let currentBullet = current.getData();
-            do currentBullet.move();
 
-            // Exiting screen - dispose and shift list up
-            if (currentBullet.getY() < (-Bullet.getHeight()))
+            // Check because the head node of the list may
+            // be an empty list
+            if (~(currentBullet = null))
             {
-                let temp = current.getNext();
-                do head.remove(current);
-                let current = temp;
-            }
-            else
-            {
-                let previous = current;
-                let current = current.getNext();
+                do currentBullet.move();
+    
+                // Exiting screen - dispose and shift list up
+                if (currentBullet.getY() < (-Bullet.getHeight()))
+                {
+                    let temp = current.getNext();
+                    if (head = current)
+                    {
+                        do head.remove(current);
+                        let head = temp;
+                    }
+                    else
+                    {
+                        do head.remove(current);
+                    }
+                    let current = temp;
+                }
+                else
+                {
+                    let previous = current;
+                    let current = current.getNext();
+                }
             }
 
         }
@@ -75,7 +90,7 @@ class BulletList
         {
             let next = null;
             do data.dispose();
-            do dispose();
+            let data = null;
             return;
         }
 
