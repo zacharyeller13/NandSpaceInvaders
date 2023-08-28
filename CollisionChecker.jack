@@ -1,0 +1,55 @@
+/** Implements collision checking logic */
+class CollisionChecker
+{
+    /** Check 1 bullet against all invaders */
+    function void checkBulletCollisions(Bullet bullet, InvaderList invaders)
+    {
+        while (~(invaders = null))
+        {
+            let invaders = invaders.getNext();
+        }
+        return;
+    }
+
+    /** Check 1 invader against all bullets
+      * May not be necessary */
+    function void checkInvaderCollisions(Invader invader, BulletList bullets)
+    {
+        return;
+    }
+
+    /** Check a collision between 1 bullet and 1 invader 
+      * using simple bounding box collision as I understand it 
+      * see Intelligent 2D Collision and Pixel Perfect Precision on gamedev.net */
+    function boolean checkCollision(Bullet bullet, Invader invader)
+    {
+        // Set up bounding boxes
+        var int bulletTop, bulletBottom, bulletLeft, bulletRight;
+        var int invaderTop, invaderBottom, invaderLeft, invaderRight;
+        let bulletTop = bullet.getY();
+        let bulletLeft = bullet.getX() + 7; // 7 being the center of the sprite
+        let bulletBottom = bullet.getY() + Bullet.getHeight();
+        let bulletRight = bullet.getX() + 7 + Bullet.getWidth();
+        let invaderTop = invader.getY();
+        let invaderLeft = invader.getX();
+        let invaderBottom = invader.getY() + Invader.getHeight();
+        let invaderRight = invader.getX() + Invader.getWidth();
+
+        // Check horizontal collision
+        if ((bulletLeft > invaderRight)
+            | (invaderLeft > bulletRight))
+        {
+            return false;
+        }
+
+        // Check vertical collision
+        // Less than since 0,0 starts in top right corner
+        if ((bulletBottom < invaderTop)
+            | (invaderBottom < bulletTop))
+        {
+            return false;
+        }
+        do Output.printString("Hit");
+        return true;
+    }
+}
