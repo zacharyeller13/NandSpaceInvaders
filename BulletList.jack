@@ -19,6 +19,7 @@ class BulletList
         {
             do next.dispose();
         }
+        do data.dispose();
         do Memory.deAlloc(this);
         return;
     }
@@ -55,15 +56,7 @@ class BulletList
                 if (currentBullet.getY() < (-Bullet.getHeight()))
                 {
                     let temp = current.getNext();
-                    if (head = current)
-                    {
-                        do head.remove(current);
-                        let head = temp;
-                    }
-                    else
-                    {
-                        do head.remove(current);
-                    }
+                    do head.remove(current);
                     let current = temp;
                 }
                 else
@@ -88,9 +81,19 @@ class BulletList
         // Base case on head node
         if (this = bulletToRemove)
         {
-            let next = null;
-            do data.dispose();
-            let data = null;
+            let previous = this;
+            let next = previous.getNext();
+            if (~(next = null))
+            {
+                let data = next.getData();
+                do previous.setNext(null);
+                do previous.dispose();
+            }
+            else
+            {
+                //do previous.dispose();
+                do dispose();
+            }
             return;
         }
 
