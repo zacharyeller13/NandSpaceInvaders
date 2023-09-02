@@ -1,0 +1,34 @@
+/** Class to encapsulate some logging logic
+  * rather than repeat myself all over the codebase
+  * while I'm mid dev
+  */
+class Logger 
+{
+    function void logString(String stringToLog, String label)
+    {
+        do Logger.printLabel(label);
+        do Output.printString(stringToLog);
+        do Output.println();
+        do Sys.wait(500);
+        return;
+    }
+
+    function void logInt(int intToLog, String label)
+    {
+        do Logger.printLabel(label);
+        do Output.printInt(intToLog);
+        do Output.println();
+        do Sys.wait(500);
+        return;
+    }
+
+    function void printLabel(String label)
+    {
+        if (~(label = null))
+        {
+            do Output.printString(label);
+            do Output.printString(": ");
+        }
+        return;
+    }
+}

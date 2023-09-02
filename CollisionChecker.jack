@@ -12,24 +12,22 @@ class CollisionChecker
         while (~(invaders = null))
         {
             // logging
-            do Output.printString("Getting Invader Data ");
-            do Sys.wait(500);
+            do Logger.logString("Getting Invader Data ", null);
 
             let currentInvader = invaders.getData();
 
             // logging
-            do Output.printString("checking collision ");
-            do Sys.wait(500);
+            do Logger.logString("checking collision ", null);
 
             if (CollisionChecker.checkCollision(bulletData, currentInvader))
             {
-                do Output.printString(" Removing here ");
+                do Logger.logString("Removing here", null);
                 do bullets.remove(bulletToCheck);
                 return;
             }
 
             // logging
-            do Output.printString("Finished checking ");
+            do Logger.logString("Finished checking", null);
 
             let invaders = invaders.getNext();
         }
@@ -61,20 +59,15 @@ class CollisionChecker
         let invaderRight = invader.getX() + invader.getWidth();
 
         // logging
-        do Output.printString("bulletLeft: ");
-        do Output.printInt(bulletLeft);
-        do Output.println();
-        do Output.printString("invaderRight: ");
-        do Output.printInt(invaderRight);
+        do Logger.logInt(bulletLeft, "bulletLeft");
+        do Logger.logInt(invaderRight, "invaderRight");
         
         // Check horizontal collision
         if ((bulletLeft > invaderRight)
             | (invaderLeft > bulletRight))
         {
             // logging
-            do Output.printString("Left or right; exiting ");
-            do Output.println();
-            do Sys.wait(500);
+            do Logger.logString("Left or right; exiting", null);
 
             return false;
         }
@@ -85,13 +78,11 @@ class CollisionChecker
             | (invaderBottom < bulletTop))
         {
             // logging
-            do Output.printString("Below or above; exiting ");
-            do Output.println();
-            do Sys.wait(500);
+            do Logger.logString("Below or above; exiting", null);
 
             return false;
         }
-        do Output.printString(" Hit ");
+        do Logger.logString("Hit", null);
         return true;
     }
 }
