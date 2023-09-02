@@ -13,7 +13,10 @@ class Renderer
 
         do Screen.clearScreen();
 
-        do Renderer.renderObject(tank.getLocation(), tank.getPixels());
+        if (~(tank = null))
+        {
+            do Renderer.renderObject(tank.getLocation(), tank.getPixels());
+        }
 
         while (~(currentBullets = null))
         {

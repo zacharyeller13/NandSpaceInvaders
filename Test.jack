@@ -54,4 +54,13 @@ class Test
         }
         return;
     }
+
+    function void testCollisions()
+    {
+        var Bullet testBullet;
+        let testBullet = Bullet.new(200, 200);
+        do Renderer.renderState(null, BulletList.new(testBullet, null), null);
+        do Sys.wait(100);
+        return;
+    }
 }
