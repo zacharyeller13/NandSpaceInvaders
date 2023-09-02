@@ -56,17 +56,44 @@ class Test
     function void testCollisions()
     {
         var Bullet testBullet;
+        var Bullet removedBullet;
+        var BulletList testBullets;
+        var BulletList testCheckedBullet;
         var Invader testInvader;
+        var Invader testInvader2;
         var InvaderList testInvaders;
 
         let testBullet = Bullet.new(200, 200);
-        let testInvader = Invader.new(200, 200);
-        let testInvaders = InvaderList.new(testInvader, null);
 
-        do Renderer.renderState(null, BulletList.new(testBullet, null), testInvaders);
+        // testCheckedBullet is not head
+        // let testCheckedBullet = BulletList.new(testBullet, null);
+        // let testBullets = BulletList.new(Bullet.new(100, 200), testCheckedBullet);
+
+        // testCheckedBullet is head
+        // let testCheckedBullet = BulletList.new(testBullet, BulletList.new(Bullet.new(100, 200), null));
+        // let testBullets = testCheckedBullet;
+
+        // testCheckedBullet is by itself
+        let testBullets = BulletList.new(testBullet, null);
+        let testCheckedBullet = testBullets;
+        
+        do testBullets.printList();
+
+        // Setup test invaders
+        let testInvader = Invader.new(200, 200);
+        let testInvader2 = Invader.new(1000, 200);
+        let testInvaders = InvaderList.new(testInvader, InvaderList.new(testInvader2, null));
+
+        // do Renderer.renderState(null, testBullets, testInvaders);
         do Sys.wait(100);
 
-        do CollisionChecker.checkBulletCollisions(testBullet, testInvaders);
+        do CollisionChecker.checkBulletCollisions(testCheckedBullet, testBullets, testInvaders);
+        do Sys.wait(1000);
+        // do testBullets.remove(testCheckedBullet);
+        do testBullets.printList();
+
+        // do Renderer.renderState(null, testBullets, testInvaders);
+
         return;
     }
 }

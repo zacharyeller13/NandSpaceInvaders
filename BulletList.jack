@@ -81,21 +81,26 @@ class BulletList
         // Base case on head node
         if (this = bulletToRemove)
         {
+            do Output.printString("this = bulletToRemove");
             let previous = this;
             let next = previous.getNext();
             if (~(next = null))
             {
+                do Output.printString(" Moving data up ");
                 let data = next.getData();
                 do previous.setNext(null);
                 do previous.dispose();
             }
             else
             {
-                //do previous.dispose();
                 do dispose();
+                let data = null;
             }
             return;
         }
+
+        // logging
+        do Output.printString("this != bulletToRemove");
 
         // Iterating through bullets to check each node
         let previous = this;
@@ -116,6 +121,40 @@ class BulletList
         }
         // Should never reach here, but if, for some reason, the bulletToRemove is orphaned
         // we must still return.
+        return;
+    }
+
+    /** Basically just for logging purposes */
+    method void printNode()
+    {
+        if (data = null)
+        {
+            do Output.printString("null");
+            return;
+        }
+        do Output.printInt(data.getX());
+        do Output.printString(",");
+        do Output.printInt(data.getY());
+        do Output.println();
+        return;
+    }
+
+    /** Basically just for logging purposes */
+    method void printList()
+    {
+        do Output.printString("( data= ");
+        do printNode();
+        do Output.printString(" next= ");
+        if (~(next = null))
+        {
+            do next.printList();
+        }
+        else
+        {
+            do Output.printString(" null ");
+        }
+        do Output.printString(" )");
+        do Output.println();
         return;
     }
 }

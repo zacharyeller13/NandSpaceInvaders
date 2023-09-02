@@ -2,20 +2,35 @@
 class CollisionChecker
 {
     /** Check 1 bullet against all invaders */
-    function void checkBulletCollisions(Bullet bullet, InvaderList invaders)
+    function void checkBulletCollisions(BulletList bulletToCheck, BulletList bullets, InvaderList invaders)
     {
         var Invader currentInvader;
+        var Bullet bulletData;
+
+        let bulletData = bulletToCheck.getData();
 
         while (~(invaders = null))
         {
-            do Output.printString("Getting Data ");
-            let currentInvader = invaders.getData();
+            // logging
+            do Output.printString("Getting Invader Data ");
             do Sys.wait(500);
 
+            let currentInvader = invaders.getData();
+
+            // logging
             do Output.printString("checking collision ");
             do Sys.wait(500);
-            do CollisionChecker.checkCollision(bullet, currentInvader);
+
+            if (CollisionChecker.checkCollision(bulletData, currentInvader))
+            {
+                do Output.printString(" Removing here ");
+                do bullets.remove(bulletToCheck);
+                return;
+            }
+
+            // logging
             do Output.printString("Finished checking ");
+
             let invaders = invaders.getNext();
         }
         return;
@@ -45,6 +60,7 @@ class CollisionChecker
         let invaderBottom = invader.getY() + invader.getHeight();
         let invaderRight = invader.getX() + invader.getWidth();
 
+        // logging
         do Output.printString("bulletLeft: ");
         do Output.printInt(bulletLeft);
         do Output.println();
@@ -55,9 +71,11 @@ class CollisionChecker
         if ((bulletLeft > invaderRight)
             | (invaderLeft > bulletRight))
         {
+            // logging
             do Output.printString("Left or right; exiting ");
             do Output.println();
             do Sys.wait(500);
+
             return false;
         }
 
@@ -66,9 +84,11 @@ class CollisionChecker
         if ((bulletBottom < invaderTop)
             | (invaderBottom < bulletTop))
         {
+            // logging
             do Output.printString("Below or above; exiting ");
             do Output.println();
             do Sys.wait(500);
+
             return false;
         }
         do Output.printString(" Hit ");
