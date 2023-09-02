@@ -1,46 +1,37 @@
 /** Implements an invader */
 class Invader 
 {
-    static int WIDTH, HEIGHT; // sprite width and height constants
     field int x, y; // screen coordinates of the invader
+    field int width, height; // sprite width and heigth
     field int direction; // 1 or -1 for right vs left
     field int location; // mapped memory location of x,y coordinates
     field Array pixels; // Represents all pixels of the sprite
-
-    /** Initializes the Invader class for static vars */
-    function void init() 
-    {
-        let WIDTH = 16;
-        let HEIGHT = 9;
-
-        return;
-    }
-
-    /** Class-level Accessors */
-    function int getWidth() { return WIDTH; }
-    function int getHeight() { return HEIGHT; }
 
     /** Constructs a new invader with the given location */
     constructor Invader new(int Ax, int Ay) 
     {
         let x = Ax;
         let y = Ay;
+        let width = 16;
+        let height = 9;
         let direction = 1;
         let location = (32 * y) + (x / 16);
         do initPixels();
         return this;
     }
-
+    
     /** Disposes the Invader */
     method void dispose() 
     {
         do Memory.deAlloc(this);
         return;
     }
-
+    
     /** Instance-level Accessors */
     method int getX() { return x; }
     method int getY() { return y; }
+    method int getWidth() { return width; }
+    method int getHeight() { return height; }
     method int getLocation() { return location; }
     method Array getPixels() { return pixels; }
 
@@ -68,10 +59,10 @@ class Invader
     method void move() 
     {
         // Check that has not reached the bottom of the screen
-        if (y < (255 - HEIGHT)) {
+        if (y < (255 - height)) {
             do checkWallCollision();
 
-            let x = x + (WIDTH * direction);
+            let x = x + (width * direction);
             let y = y + 2;
             let location = (32 * y) + (x / 16);
         }
@@ -84,14 +75,14 @@ class Invader
     {
         if (direction = 1) 
         {
-            if ((x + WIDTH) > 511) 
+            if ((x + width) > 511) 
             {
                 do changeDirection();
             }
         }
         else 
         {
-            if ((x - WIDTH) < 0) 
+            if ((x - width) < 0) 
             {
                 do changeDirection();
             }

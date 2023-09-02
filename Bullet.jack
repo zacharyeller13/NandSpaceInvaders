@@ -2,44 +2,36 @@
   * to move and track bullet location */
 class Bullet 
 {
-    static int WIDTH, HEIGHT, BULLET_SPEED;
     field int x, y; // x, y coordinates
+    field int width, height, bullet_speed;
     field int location; // memory address location
     field Array pixels; // All pixels of the sprite
-
-    /** Initialize the Bullet class */
-    function void init()
-    {
-        let WIDTH = 2;
-        let HEIGHT = 4;
-        let BULLET_SPEED = 2;
-        return;
-    }
-
-    /** Class-level accessors */
-    function int getWidth() { return WIDTH; }
-    function int getHeight() { return HEIGHT; }
 
     /** Instantiates a bullet at x,y coordinates */
     constructor Bullet new(int Ax, int Ay)
     {
         let x = Ax;
         let y = Ay;
+        let width = 2;
+        let height = 4;
+        let bullet_speed = 2;
         let location = (32 * y) + (x / 16);
         do initPixels();
         return this;
     }
-
+    
     /** Deallocates memory for the bullet */
     method void dispose()
     {
         do Memory.deAlloc(this);
         return;
     }
-
+    
     /** Instance-level accessors */
     method int getX() { return x; }
     method int getY() { return y; }
+    method int getWidth() { return width; }
+    method int getHeight() { return height; }
     method int getLocation() { return location; }
     method Array getPixels() { return pixels; }
 
@@ -66,7 +58,7 @@ class Bullet
     /** Moves this bullet straight up */
     method void move()
     {
-        let y = y - BULLET_SPEED;
+        let y = y - bullet_speed;
         do updateLocation();
         return;
     }

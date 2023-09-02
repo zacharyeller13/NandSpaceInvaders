@@ -4,8 +4,18 @@ class CollisionChecker
     /** Check 1 bullet against all invaders */
     function void checkBulletCollisions(Bullet bullet, InvaderList invaders)
     {
+        var Invader currentInvader;
+
         while (~(invaders = null))
         {
+            do Output.printString("Getting Data ");
+            let currentInvader = invaders.getData();
+            do Sys.wait(500);
+
+            do Output.printString("checking collision ");
+            do Sys.wait(500);
+            do CollisionChecker.checkCollision(bullet, currentInvader);
+            do Output.printString("Finished checking ");
             let invaders = invaders.getNext();
         }
         return;
@@ -28,17 +38,26 @@ class CollisionChecker
         var int invaderTop, invaderBottom, invaderLeft, invaderRight;
         let bulletTop = bullet.getY();
         let bulletLeft = bullet.getX() + 7; // 7 being the center of the sprite
-        let bulletBottom = bullet.getY() + Bullet.getHeight();
-        let bulletRight = bullet.getX() + 7 + Bullet.getWidth();
+        let bulletBottom = bullet.getY() + bullet.getHeight();
+        let bulletRight = bullet.getX() + 7 + bullet.getWidth();
         let invaderTop = invader.getY();
         let invaderLeft = invader.getX();
-        let invaderBottom = invader.getY() + Invader.getHeight();
-        let invaderRight = invader.getX() + Invader.getWidth();
+        let invaderBottom = invader.getY() + invader.getHeight();
+        let invaderRight = invader.getX() + invader.getWidth();
 
+        do Output.printString("bulletLeft: ");
+        do Output.printInt(bulletLeft);
+        do Output.println();
+        do Output.printString("invaderRight: ");
+        do Output.printInt(invaderRight);
+        
         // Check horizontal collision
         if ((bulletLeft > invaderRight)
             | (invaderLeft > bulletRight))
         {
+            do Output.printString("Left or right; exiting ");
+            do Output.println();
+            do Sys.wait(500);
             return false;
         }
 
@@ -47,9 +66,12 @@ class CollisionChecker
         if ((bulletBottom < invaderTop)
             | (invaderBottom < bulletTop))
         {
+            do Output.printString("Below or above; exiting ");
+            do Output.println();
+            do Sys.wait(500);
             return false;
         }
-        do Output.printString("Hit");
+        do Output.printString(" Hit ");
         return true;
     }
 }

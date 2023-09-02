@@ -10,8 +10,6 @@ class Test
         var Bullet currentBullet;
         
         let tank = game.getTank();
-        do Bullet.init();
-        do Invader.init();
         
         do game.setBullets(BulletList.new(tank.fire(), null));
 
@@ -58,9 +56,17 @@ class Test
     function void testCollisions()
     {
         var Bullet testBullet;
+        var Invader testInvader;
+        var InvaderList testInvaders;
+
         let testBullet = Bullet.new(200, 200);
-        do Renderer.renderState(null, BulletList.new(testBullet, null), null);
+        let testInvader = Invader.new(200, 200);
+        let testInvaders = InvaderList.new(testInvader, null);
+
+        do Renderer.renderState(null, BulletList.new(testBullet, null), testInvaders);
         do Sys.wait(100);
+
+        do CollisionChecker.checkBulletCollisions(testBullet, testInvaders);
         return;
     }
 }

@@ -18,18 +18,18 @@ class Renderer
             do Renderer.renderObject(tank.getLocation(), tank.getPixels());
         }
 
-        while (~(currentBullets = null))
-        {
-            let currentBullet = currentBullets.getData();
-            do Renderer.renderObject(currentBullet.getLocation(), currentBullet.getPixels());
-            let currentBullets = currentBullets.getNext();
-        }
-
         while (~(currentInvaders = null))
         {
             let currentInvader = currentInvaders.getData();
             do Renderer.renderObject(currentInvader.getLocation(), currentInvader.getPixels());
             let currentInvaders = currentInvaders.getNext();
+        }
+
+        while (~(currentBullets = null))
+        {
+            let currentBullet = currentBullets.getData();
+            do Renderer.renderObject(currentBullet.getLocation(), currentBullet.getPixels());
+            let currentBullets = currentBullets.getNext();
         }
         
         return;
