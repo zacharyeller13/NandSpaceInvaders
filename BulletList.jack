@@ -84,6 +84,7 @@ class BulletList
             do Logger.logString("this = bulletToRemove", null);
             let previous = this;
             let next = previous.getNext();
+            
             if (~(next = null))
             {
                 do Logger.logString("Moving data up", null);

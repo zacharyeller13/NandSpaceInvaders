@@ -19,6 +19,7 @@ class InvaderList
         {
             do next.dispose();
         }
+        do data.dispose();
         do Memory.deAlloc(this);
         return;
     }
@@ -54,9 +55,25 @@ class InvaderList
         // Base case on the head node
         if (this = invaderToRemove)
         {
-            let next = null;
-            do data.dispose();
-            do dispose();
+            do Logger.logString("this = invaderToRemove", null);
+
+            if (~(next = null))
+            {
+                do Logger.logString("Moving data up", null);
+                do data.dispose();
+                let data = next.getData();
+                let previous = next;
+                let next = next.getNext();
+
+                // Prevent a memory leak by disposing of the node that's moved up
+                do previous.setNext(null);
+                do previous.dispose();
+            }
+            else
+            {
+                do dispose();
+                let data = null;
+            }
             return;
         }
 
@@ -80,6 +97,40 @@ class InvaderList
         // Should never reach here, but if, for some reason, the invaderToRemove is orphaned
         // we must still return.
         return;
+
+    }
+    
+    /** Visualize any node in the list */
+    method void printNode()
+    {
+        if (data = null)
+        {
+            do Output.printString("null");
+            return;
+        }
+        do Output.printInt(data.getX());
+        do Output.printString(",");
+        do Output.printInt(data.getY());
+        do Output.println();
+        return;
     }
 
+    /** Visualize the entire list */
+    method void printList()
+    {
+        do Output.printString("( data= ");
+        do printNode();
+        do Output.printString(" next= ");
+        if (~(next = null))
+        {
+            do next.printList();
+        }
+        else
+        {
+            do Output.printString(" null ");
+        }
+        do Output.printString(" )");
+        do Output.println();
+        return;
+    }
 }

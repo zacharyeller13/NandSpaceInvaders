@@ -96,4 +96,122 @@ class Test
 
         return;
     }
+
+    function void testSingleInvaderRemoval()
+    {
+        var Invader testInvader;
+        var InvaderList testInvaders;
+        var InvaderList invaderToRemove;
+
+        let testInvader = Invader.new(200, 200);
+        // List, length 1
+        let testInvaders = InvaderList.new(testInvader, null);
+
+        do testInvaders.printList();
+
+        // Remove front
+        let invaderToRemove = testInvaders;
+        do testInvaders.remove(invaderToRemove);
+
+        do testInvaders.printList();
+        return;
+    }
+
+    function void testListInvaderFrontRemoval()
+    {
+        var Invader testInvader;
+        var Invader testInvader2;
+        var Invader testInvader3;
+        var InvaderList testInvaders;
+        var InvaderList invaderToRemove;
+
+        let testInvader = Invader.new(200, 200);
+        let testInvader2 = Invader.new(1000, 200);
+        let testInvader3 = Invader.new(500, 200);
+        let testInvaders = InvaderList.new(
+            testInvader, InvaderList.new(
+                testInvader2, InvaderList.new(
+                    testInvader3, null
+                )
+            )
+        );
+
+        do Sys.wait(100);
+
+        do testInvaders.printList();
+
+        // Remove front
+        let invaderToRemove = testInvaders;
+        do testInvaders.remove(invaderToRemove);
+
+        do testInvaders.printList();
+
+        return;
+    }
+
+    function void testListInvaderMiddleRemoval()
+    {
+        var Invader testInvader;
+        var Invader testInvader2;
+        var Invader testInvader3;
+        var InvaderList testInvaders;
+        var InvaderList invaderToRemove;
+
+        let testInvader = Invader.new(200, 200);
+        let testInvader2 = Invader.new(1000, 200);
+        let testInvader3 = Invader.new(500, 200);
+        let testInvaders = InvaderList.new(
+            testInvader, InvaderList.new(
+                testInvader2, InvaderList.new(
+                    testInvader3, null
+                )
+            )
+        );
+
+        do Sys.wait(100);
+
+        do testInvaders.printList();
+
+        // Remove middle
+        let invaderToRemove = testInvaders.getNext();
+        do testInvaders.remove(invaderToRemove);
+
+        
+        do testInvaders.printList();
+        
+        return;
+    }
+
+    function void testListInvaderBackRemoval()
+    {
+        var Invader testInvader;
+        var Invader testInvader2;
+        var Invader testInvader3;
+        var InvaderList testInvaders;
+        var InvaderList invaderToRemove;
+
+        let testInvader = Invader.new(200, 200);
+        let testInvader2 = Invader.new(1000, 200);
+        let testInvader3 = Invader.new(500, 200);
+        let testInvaders = InvaderList.new(
+            testInvader, InvaderList.new(
+                testInvader2, InvaderList.new(
+                    testInvader3, null
+                )
+            )
+        );
+
+        do Sys.wait(100);
+
+        do testInvaders.printList();
+
+        // Remove back
+        let invaderToRemove = testInvaders.getNext();
+        let invaderToRemove = invaderToRemove.getNext();
+        do testInvaders.remove(invaderToRemove);
+
+        do testInvaders.printList();
+
+        return;
+    }
 }
