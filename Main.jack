@@ -5,7 +5,11 @@ class Main
         var SpaceInvaderGame game;
         // let game = SpaceInvaderGame.new();
         // do Test.doStuff(game);
-        do Test.testCollisions();
+        // do Test.testCollisions();
+        // do Test.testSingleInvaderRemoval();
+        // do Test.testListInvaderFrontRemoval();
+        // do Test.testListInvaderMiddleRemoval();
+        do Test.testListInvaderBackRemoval();
         return;
     }
 }
