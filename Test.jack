@@ -214,4 +214,70 @@ class Test
 
         return;
     }
+
+    function void testListInvaderAdd()
+    {
+        var InvaderList invaders;
+        var Invader newInvader;
+
+        do Logger.logString("Testing Single Item List", null);
+        let invaders = InvaderList.new(
+            Invader.new(200, 200),
+            null
+        );
+
+        do invaders.printList();
+        do Sys.wait(500);
+
+        let newInvader = Invader.new(250, 250);
+        do invaders.add(newInvader);
+        do invaders.printList();
+
+        return;
+    }
+
+    function void testListInvaderAddToEmpty()
+    {
+        var InvaderList invaders;
+        var Invader newInvader;
+
+        do Logger.logString("Testing Empty List", null);
+        let invaders = InvaderList.new(
+            null,
+            null
+        );
+
+        do invaders.printList();
+        do Sys.wait(500);
+
+        let newInvader = Invader.new(250, 250);
+        do invaders.add(newInvader);
+        do invaders.printList();
+
+        return;
+    }
+
+    function void testListInvaderAddTo2()
+    {
+        var InvaderList invaders;
+        var Invader newInvader;
+
+        do Logger.logString("Testing 2 Item List", null);
+        let invaders = InvaderList.new(
+            Invader.new(200,200),
+            InvaderList.new(
+                Invader.new(200, 300),
+                null
+            )
+        );
+
+        do invaders.printList();
+        do Sys.wait(500);
+
+        let newInvader = Invader.new(250, 250);
+        do invaders.add(newInvader);
+        do invaders.printList();
+
+        return;
+    }
 }
