@@ -70,6 +70,26 @@ class BulletList
         return;
     }
     
+    /** Add a bullet to the list
+      * Typically would call only on the head node 
+      * Not really best practice to always add as the 2nd node in the list
+      * But it's faster and easier than iterating the whole list and adding to the end */
+      method void add(Bullet newBullet)
+      {
+          var BulletList temp;
+  
+          // If an empty list, make it the first node
+          if (data = null)
+          {
+              let data = newBullet;
+              return;
+          }
+  
+          let temp = BulletList.new(newBullet, next);
+          let next = temp;
+          return;
+      }
+
     /** Remove bullet from the list 
       * should always be called on the head node */
     method void remove(BulletList bulletToRemove)
@@ -82,13 +102,16 @@ class BulletList
         if (this = bulletToRemove)
         {
             do Logger.logString("this = bulletToRemove", null);
-            let previous = this;
-            let next = previous.getNext();
             
             if (~(next = null))
             {
                 do Logger.logString("Moving data up", null);
+                do data.dispose();
                 let data = next.getData();
+                let previous = next;
+                let next = next.getNext();
+
+                // Prevent a memory leak by disposing of the node that's moved up
                 do previous.setNext(null);
                 do previous.dispose();
             }
