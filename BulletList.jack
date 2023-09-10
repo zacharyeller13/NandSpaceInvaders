@@ -82,13 +82,16 @@ class BulletList
         if (this = bulletToRemove)
         {
             do Logger.logString("this = bulletToRemove", null);
-            let previous = this;
-            let next = previous.getNext();
             
             if (~(next = null))
             {
                 do Logger.logString("Moving data up", null);
+                do data.dispose();
                 let data = next.getData();
+                let previous = next;
+                let next = next.getNext();
+
+                // Prevent a memory leak by disposing of the node that's moved up
                 do previous.setNext(null);
                 do previous.dispose();
             }
