@@ -6,13 +6,24 @@ class Main
         // let game = SpaceInvaderGame.new();
         // do Test.doStuff(game);
         // do Test.testCollisions();
+
+        // Invader Add/Remove
         // do Test.testSingleInvaderRemoval();
         // do Test.testListInvaderFrontRemoval();
         // do Test.testListInvaderMiddleRemoval();
         // do Test.testListInvaderBackRemoval();
-        do Test.testListInvaderAdd();
-        do Test.testListInvaderAddToEmpty();
-        do Test.testListInvaderAddTo2();
+        // do Test.testListInvaderAdd();
+        // do Test.testListInvaderAddToEmpty();
+        // do Test.testListInvaderAddTo2();
+
+        // Bullet Add/Remove
+        // do Test.testSingleBulletRemoval();
+        // do Test.testListBulletFrontRemoval();
+        // do Test.testListBulletMiddleRemoval();
+        // do Test.testListBulletBackRemoval();
+        // do Test.testListBulletAdd();
+        // do Test.testListBulletAddToEmpty();
+        // do Test.testListBulletAddTo2();
         return;
     }
 }
