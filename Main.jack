@@ -9,7 +9,10 @@ class Main
         // do Test.testSingleInvaderRemoval();
         // do Test.testListInvaderFrontRemoval();
         // do Test.testListInvaderMiddleRemoval();
-        do Test.testListInvaderBackRemoval();
+        // do Test.testListInvaderBackRemoval();
+        do Test.testListInvaderAdd();
+        do Test.testListInvaderAddToEmpty();
+        do Test.testListInvaderAddTo2();
         return;
     }
 }
