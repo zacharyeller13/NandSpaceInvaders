@@ -2,25 +2,25 @@ class Main
 {
     function void main() 
     {
-        // Test InvaderList Removal Rendering
-        /*do TestInvaderList.testRenderInvaderListSingleInvader();
+        // Test BulletList Removal Rendering
+        do TestBulletList.testRenderBulletListSingleBullet();
         do Sys.wait(500);
-        do TestInvaderList.testRenderInvaderListFrontRemoval();
+        do TestBulletList.testRenderBulletListFrontRemoval();
         do Sys.wait(500);
-        do TestInvaderList.testRenderInvaderListMiddleRemoval();
+        do TestBulletList.testRenderBulletListMiddleRemoval();
         do Sys.wait(500);
-        do TestInvaderList.testRenderInvaderListBackRemoval();*/
+        do TestBulletList.testRenderBulletListBackRemoval();
 
-        // Test InvaderList Add Rendering
-        /*do TestInvaderList.testRenderListInvaderAdd();
+        // Test BulletList Add Rendering
+        do TestBulletList.testRenderListBulletAdd();
         do Sys.wait(500);
-        do TestInvaderList.testRenderListInvaderAddToEmpty();
+        do TestBulletList.testRenderListBulletAddToEmpty();
         do Sys.wait(500);
-        do TestInvaderList.testRenderListInvaderAddTo2();
-        do Sys.wait(500);*/
+        do TestBulletList.testRenderListBulletAddTo2();
+        do Sys.wait(500);
 
-        // Test InvaderList Movement + Rendering
-        do TestInvaderList.testRenderInvaderListAndMove();
+        // Test BulletList Movement + Rendering
+        do TestBulletList.testRenderBulletListAndMove();
         do Sys.wait(500);
 
         return;
