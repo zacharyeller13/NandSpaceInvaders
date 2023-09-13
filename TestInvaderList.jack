@@ -1,6 +1,264 @@
-/** Test List Methods */
-class TestList
+/** Test Invader List Methods */
+class TestInvaderList
 {
+    /** Test List movement works with Rendering and add/remove */
+    function void testRenderInvaderListAndMove()
+    {
+        var Invader testInvader;
+        var Invader testInvader2;
+        var Invader testInvader3;
+        var Invader newInvader;
+        var InvaderList testInvaders;
+        var InvaderList invaderToRemove;
+
+        let testInvader = Invader.new(200, 200);
+        let testInvader2 = Invader.new(1000, 200);
+        let testInvader3 = Invader.new(500, 200);
+        let testInvaders = InvaderList.new(
+            testInvader, InvaderList.new(
+                testInvader2, InvaderList.new(
+                    testInvader3, null
+                )
+            )
+        );
+
+        do Sys.wait(100);
+
+        do Renderer.renderState(null, null, testInvaders);
+        do Sys.wait(500);
+
+        do Logger.logString("Moving", null);
+        do testInvaders.move();
+
+        do Logger.logString("After moving", null);
+        do Renderer.renderState(null, null, testInvaders);
+        do Sys.wait(500);
+
+        // Remove middle
+        do Logger.logString("Removing", null);
+        let invaderToRemove = testInvaders.getNext();
+        do testInvaders.remove(invaderToRemove);
+
+        do Renderer.renderState(null, null, testInvaders);
+        do Sys.wait(500);
+
+        do Logger.logString("Move after removing", null);
+        do Sys.wait(500);
+        do testInvaders.move();
+        do Sys.wait(500);
+        do Renderer.renderState(null, null, testInvaders);
+
+        do Logger.logString("Adding and moving", null);
+        let newInvader = Invader.new(250, 150);
+        do testInvaders.add(newInvader);
+        do testInvaders.move();
+        do Renderer.renderState(null, null, testInvaders);
+
+        return;        
+    }
+
+    /** Test List functions work with Rendering */
+    function void testRenderInvaderListSingleInvader()
+    {
+        var Invader testInvader;
+        var InvaderList testInvaders;
+        var InvaderList invaderToRemove;
+
+        let testInvader = Invader.new(200, 200);
+        // List, length 1
+        let testInvaders = InvaderList.new(testInvader, null);
+
+        do Renderer.renderState(null, null, testInvaders);
+        do Sys.wait(500);
+
+        // Remove front
+        let invaderToRemove = testInvaders;
+        do testInvaders.remove(invaderToRemove);
+        do Sys.wait(500);
+
+        do Renderer.renderState(null, null, testInvaders);
+        return;
+    }
+
+    /** Test List of length 3, remove front node, renders properly */
+    function void testRenderInvaderListFrontRemoval()
+    {
+        var Invader testInvader;
+        var Invader testInvader2;
+        var Invader testInvader3;
+        var InvaderList testInvaders;
+        var InvaderList invaderToRemove;
+
+        let testInvader = Invader.new(200, 200);
+        let testInvader2 = Invader.new(1000, 200);
+        let testInvader3 = Invader.new(500, 200);
+        let testInvaders = InvaderList.new(
+            testInvader, InvaderList.new(
+                testInvader2, InvaderList.new(
+                    testInvader3, null
+                )
+            )
+        );
+
+        do Sys.wait(100);
+
+        do Renderer.renderState(null, null, testInvaders);
+        do Sys.wait(500);
+
+        // Remove front
+        let invaderToRemove = testInvaders;
+        do testInvaders.remove(invaderToRemove);
+
+        do Renderer.renderState(null, null, testInvaders);
+        do Sys.wait(500);
+
+        return;
+    }
+
+    /** Test List of length 3, remove middle node, renders properly */
+    function void testRenderInvaderListMiddleRemoval()
+    {
+        var Invader testInvader;
+        var Invader testInvader2;
+        var Invader testInvader3;
+        var InvaderList testInvaders;
+        var InvaderList invaderToRemove;
+
+        let testInvader = Invader.new(200, 200);
+        let testInvader2 = Invader.new(1000, 200);
+        let testInvader3 = Invader.new(500, 200);
+        let testInvaders = InvaderList.new(
+            testInvader, InvaderList.new(
+                testInvader2, InvaderList.new(
+                    testInvader3, null
+                )
+            )
+        );
+
+        do Sys.wait(100);
+
+        do Renderer.renderState(null, null, testInvaders);
+        do Sys.wait(500);
+
+        // Remove middle
+        let invaderToRemove = testInvaders.getNext();
+        do testInvaders.remove(invaderToRemove);
+
+        do Renderer.renderState(null, null, testInvaders);
+        do Sys.wait(500);
+        
+        return;
+    }
+
+    /** Test List of length 3, remove last node, renders properly */
+    function void testRenderInvaderListBackRemoval()
+    {
+        var Invader testInvader;
+        var Invader testInvader2;
+        var Invader testInvader3;
+        var InvaderList testInvaders;
+        var InvaderList invaderToRemove;
+
+        let testInvader = Invader.new(200, 200);
+        let testInvader2 = Invader.new(1000, 200);
+        let testInvader3 = Invader.new(500, 200);
+        let testInvaders = InvaderList.new(
+            testInvader, InvaderList.new(
+                testInvader2, InvaderList.new(
+                    testInvader3, null
+                )
+            )
+        );
+
+        do Sys.wait(100);
+
+        do Renderer.renderState(null, null, testInvaders);
+        do Sys.wait(500);
+
+        // Remove back
+        let invaderToRemove = testInvaders.getNext();
+        let invaderToRemove = invaderToRemove.getNext();
+        do testInvaders.remove(invaderToRemove);
+
+        do Renderer.renderState(null, null, testInvaders);
+        do Sys.wait(500);
+
+        return;
+    }
+
+    /** Test list of length 1, add 1 node, renders properly */
+    function void testRenderListInvaderAdd()
+    {
+        var InvaderList invaders;
+        var Invader newInvader;
+
+        do Logger.logString("Testing Single Item List", null);
+        let invaders = InvaderList.new(
+            Invader.new(200, 200),
+            null
+        );
+
+        do Renderer.renderState(null, null, invaders);
+        do Sys.wait(500);
+
+        let newInvader = Invader.new(250, 150);
+        do invaders.add(newInvader);
+        do Renderer.renderState(null, null, invaders);
+        do Sys.wait(500);
+
+        return;
+    }
+
+    /** Test empty list, add 1 node, renders properly */
+    function void testRenderListInvaderAddToEmpty()
+    {
+        var InvaderList invaders;
+        var Invader newInvader;
+
+        do Logger.logString("Testing Empty List", null);
+        let invaders = InvaderList.new(
+            null,
+            null
+        );
+
+        do Renderer.renderState(null, null, invaders);
+        do Sys.wait(500);
+
+        let newInvader = Invader.new(250, 150);
+        do invaders.add(newInvader);
+        do Renderer.renderState(null, null, invaders);
+        do Sys.wait(500);
+
+        return;
+    }
+
+    /** Test list of length 2, add 1 node, renders properly */
+    function void testRenderListInvaderAddTo2()
+    {
+        var InvaderList invaders;
+        var Invader newInvader;
+
+        do Logger.logString("Testing 2 Item List", null);
+        let invaders = InvaderList.new(
+            Invader.new(200,200),
+            InvaderList.new(
+                Invader.new(300, 200),
+                null
+            )
+        );
+
+        do Renderer.renderState(null, null, invaders);
+        do Sys.wait(500);
+
+        let newInvader = Invader.new(250, 150);
+        do invaders.add(newInvader);
+        do Renderer.renderState(null, null, invaders);
+        do Sys.wait(500);
+
+        return;
+    }   
+
+    /** InvaderList Unit Tests */
     function void testSingleInvaderRemoval()
     {
         var Invader testInvader;
@@ -185,7 +443,7 @@ class TestList
         return;
     }
 
-
+    /** BulletList Unit Tests */
     function void testSingleBulletRemoval()
     {
         var Bullet testBullet;
