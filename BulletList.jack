@@ -19,7 +19,6 @@ class BulletList
         {
             do next.dispose();
         }
-        do data.dispose();
         do Memory.deAlloc(this);
         return;
     }
@@ -53,7 +52,7 @@ class BulletList
                 do currentBullet.move();
     
                 // Exiting screen - dispose and shift list up
-                if (currentBullet.getY() < (-Bullet.getHeight()))
+                if (currentBullet.getY() < (-currentBullet.getHeight()))
                 {
                     let temp = current.getNext();
                     do head.remove(current);
@@ -70,6 +69,26 @@ class BulletList
         return;
     }
     
+    /** Add a bullet to the list
+      * Typically would call only on the head node 
+      * Not really best practice to always add as the 2nd node in the list
+      * But it's faster and easier than iterating the whole list and adding to the end */
+    method void add(Bullet newBullet)
+    {
+        var BulletList temp;
+
+        // If an empty list, make it the first node
+        if (data = null)
+        {
+            let data = newBullet;
+            return;
+        }
+
+        let temp = BulletList.new(newBullet, next);
+        let next = temp;
+        return;
+    }
+
     /** Remove bullet from the list 
       * should always be called on the head node */
     method void remove(BulletList bulletToRemove)
@@ -81,21 +100,31 @@ class BulletList
         // Base case on head node
         if (this = bulletToRemove)
         {
-            let previous = this;
-            let next = previous.getNext();
+            do Logger.logString("this = bulletToRemove", null);
+            
             if (~(next = null))
             {
+                do Logger.logString("Moving data up", null);
+                do data.dispose();
                 let data = next.getData();
+                let previous = next;
+                let next = next.getNext();
+
+                // Prevent a memory leak by disposing of the node that's moved up
                 do previous.setNext(null);
                 do previous.dispose();
             }
             else
             {
-                //do previous.dispose();
+                do data.dispose();
                 do dispose();
+                let data = null;
             }
             return;
         }
+
+        // logging
+        do Logger.logString("this != bulletToRemove", null);
 
         // Iterating through bullets to check each node
         let previous = this;
@@ -116,6 +145,40 @@ class BulletList
         }
         // Should never reach here, but if, for some reason, the bulletToRemove is orphaned
         // we must still return.
+        return;
+    }
+
+    /** Basically just for logging purposes */
+    method void printNode()
+    {
+        if (data = null)
+        {
+            do Output.printString("null");
+            return;
+        }
+        do Output.printInt(data.getX());
+        do Output.printString(",");
+        do Output.printInt(data.getY());
+        do Output.println();
+        return;
+    }
+
+    /** Basically just for logging purposes */
+    method void printList()
+    {
+        do Output.printString("( data= ");
+        do printNode();
+        do Output.printString(" next= ");
+        if (~(next = null))
+        {
+            do next.printList();
+        }
+        else
+        {
+            do Output.printString(" null ");
+        }
+        do Output.printString(" )");
+        do Output.println();
         return;
     }
 }

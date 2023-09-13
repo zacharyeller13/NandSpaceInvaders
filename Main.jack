@@ -2,9 +2,13 @@ class Main
 {
     function void main() 
     {
-        var SpaceInvaderGame game;
-        let game = SpaceInvaderGame.new();
-        do Test.doStuff(game);
+        // do Logger.logString("Empty Lists", null);
+        // do Sys.wait(500);
+        // do TestCollisions.testCollisionsEmptyLists();
+
+        do Logger.logString("Short Lists", null);
+        do Sys.wait(500);
+        do TestCollisions.testCollisions();
         return;
     }
 }

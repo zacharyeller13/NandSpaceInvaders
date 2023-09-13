@@ -1,4 +1,6 @@
-/** Implement a singly linked list of invaders */
+/** Implement a singly linked list of invaders.
+  * There's probably some jank way I could figure out to make a generic list
+  * But I haven't tried to work through that yet, so this will work for now */
 class InvaderList 
 {
     field Invader data; // current Invader
@@ -37,9 +39,33 @@ class InvaderList
         while (~(current = null))
         {
             let currentInvader = current.getData();
-            do currentInvader.move();
+            // If this is an empty list, currentInvader will be null
+            if (~(currentInvader = null))
+            {
+                do currentInvader.move();
+            }
             let current = current.getNext();
         }
+        return;
+    }
+
+    /** Add an invader to the list
+      * Typically would call only on the head node 
+      * Not really best practice to always add as the 2nd node in the list
+      * But it's faster and easier than iterating the whole list and adding to the end */
+    method void add(Invader newInvader)
+    {
+        var InvaderList temp;
+
+        // If an empty list, make it the first node
+        if (data = null)
+        {
+            let data = newInvader;
+            return;
+        }
+
+        let temp = InvaderList.new(newInvader, next);
+        let next = temp;
         return;
     }
 
@@ -54,11 +80,31 @@ class InvaderList
         // Base case on the head node
         if (this = invaderToRemove)
         {
-            let next = null;
-            do data.dispose();
-            do dispose();
+            do Logger.logString("this = invaderToRemove", null);
+
+            if (~(next = null))
+            {
+                do Logger.logString("Moving invader data up", null);
+                do data.dispose();
+                let data = next.getData();
+                let previous = next;
+                let next = next.getNext();
+
+                // Prevent a memory leak by disposing of the node that's moved up
+                do previous.setNext(null);
+                do previous.dispose();
+            }
+            else
+            {
+                do data.dispose();
+                do dispose();
+                let data = null;
+            }
             return;
         }
+
+        //logging
+        do Logger.logString("this != invaderToRemove", null);
 
         // Iterating through list to check each node
         let previous = this;
@@ -80,6 +126,40 @@ class InvaderList
         // Should never reach here, but if, for some reason, the invaderToRemove is orphaned
         // we must still return.
         return;
+
+    }
+    
+    /** Visualize any node in the list */
+    method void printNode()
+    {
+        if (data = null)
+        {
+            do Output.printString("null");
+            return;
+        }
+        do Output.printInt(data.getX());
+        do Output.printString(",");
+        do Output.printInt(data.getY());
+        do Output.println();
+        return;
     }
 
+    /** Visualize the entire list */
+    method void printList()
+    {
+        do Output.printString("( data= ");
+        do printNode();
+        do Output.printString(" next= ");
+        if (~(next = null))
+        {
+            do next.printList();
+        }
+        else
+        {
+            do Output.printString(" null ");
+        }
+        do Output.printString(" )");
+        do Output.println();
+        return;
+    }
 }

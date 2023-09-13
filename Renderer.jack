@@ -13,20 +13,33 @@ class Renderer
 
         do Screen.clearScreen();
 
-        do Renderer.renderObject(tank.getLocation(), tank.getPixels());
-
-        while (~(currentBullets = null))
+        if (~(tank = null))
         {
-            let currentBullet = currentBullets.getData();
-            do Renderer.renderObject(currentBullet.getLocation(), currentBullet.getPixels());
-            let currentBullets = currentBullets.getNext();
+            do Renderer.renderObject(tank.getLocation(), tank.getPixels());
         }
 
         while (~(currentInvaders = null))
         {
             let currentInvader = currentInvaders.getData();
-            do Renderer.renderObject(currentInvader.getLocation(), currentInvader.getPixels());
+
+            // If this is an empty list, getData() will return null
+            if (~(currentInvader = null))
+            {
+                do Renderer.renderObject(currentInvader.getLocation(), currentInvader.getPixels());
+            }
             let currentInvaders = currentInvaders.getNext();
+        }
+
+        while (~(currentBullets = null))
+        {
+            let currentBullet = currentBullets.getData();
+
+            // If this is an empty list, getData() will return null
+            if (~(currentBullet = null))
+            {
+                do Renderer.renderObject(currentBullet.getLocation(), currentBullet.getPixels());
+            }
+            let currentBullets = currentBullets.getNext();
         }
         
         return;
