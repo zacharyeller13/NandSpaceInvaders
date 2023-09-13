@@ -2,28 +2,23 @@ class Main
 {
     function void main() 
     {
-        var SpaceInvaderGame game;
-        // let game = SpaceInvaderGame.new();
-        // do Test.doStuff(game);
-        // do Test.testCollisions();
-
         // Invader Add/Remove
-        // do Test.testSingleInvaderRemoval();
-        // do Test.testListInvaderFrontRemoval();
-        // do Test.testListInvaderMiddleRemoval();
-        // do Test.testListInvaderBackRemoval();
-        // do Test.testListInvaderAdd();
-        // do Test.testListInvaderAddToEmpty();
-        // do Test.testListInvaderAddTo2();
+        // do TestList.testSingleInvaderRemoval();
+        // do TestList.testListInvaderFrontRemoval();
+        // do TestList.testListInvaderMiddleRemoval();
+        // do TestList.testListInvaderBackRemoval();
+        // do TestList.testListInvaderAdd();
+        // do TestList.testListInvaderAddToEmpty();
+        // do TestList.testListInvaderAddTo2();
 
         // Bullet Add/Remove
-        // do Test.testSingleBulletRemoval();
-        // do Test.testListBulletFrontRemoval();
-        // do Test.testListBulletMiddleRemoval();
-        // do Test.testListBulletBackRemoval();
-        // do Test.testListBulletAdd();
-        // do Test.testListBulletAddToEmpty();
-        // do Test.testListBulletAddTo2();
+        // do TestList.testSingleBulletRemoval();
+        // do TestList.testListBulletFrontRemoval();
+        // do TestList.testListBulletMiddleRemoval();
+        // do TestList.testListBulletBackRemoval();
+        // do TestList.testListBulletAdd();
+        // do TestList.testListBulletAddToEmpty();
+        // do TestList.testListBulletAddTo2();
         return;
     }
 }
