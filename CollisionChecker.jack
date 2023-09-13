@@ -10,8 +10,16 @@ class CollisionChecker
     {
         var Invader currentInvader;
         var Bullet bulletData;
+        var InvaderList invadersHead;
 
         let bulletData = bulletToCheck.getData();
+        let invadersHead = invaders;
+
+        // Return early if this is an empty list
+        if (bulletData = null)
+        {
+            return;
+        }
 
         while (~(invaders = null))
         {
@@ -27,6 +35,7 @@ class CollisionChecker
             {
                 do Logger.logString("Removing here", null);
                 do bullets.remove(bulletToCheck);
+                do invadersHead.remove(invaders);
                 return;
             }
 
@@ -35,13 +44,6 @@ class CollisionChecker
 
             let invaders = invaders.getNext();
         }
-        return;
-    }
-
-    /** Check 1 invader against all bullets
-      * May not be necessary */
-    function void checkInvaderCollisions(Invader invader, BulletList bullets)
-    {
         return;
     }
 
@@ -65,6 +67,7 @@ class CollisionChecker
         // logging
         do Logger.logInt(bulletLeft, "bulletLeft");
         do Logger.logInt(invaderRight, "invaderRight");
+        do Sys.wait(500);
         
         // Check horizontal collision
         if ((bulletLeft > invaderRight)

@@ -19,7 +19,6 @@ class BulletList
         {
             do next.dispose();
         }
-        do data.dispose();
         do Memory.deAlloc(this);
         return;
     }
@@ -117,6 +116,7 @@ class BulletList
             }
             else
             {
+                do data.dispose();
                 do dispose();
                 let data = null;
             }

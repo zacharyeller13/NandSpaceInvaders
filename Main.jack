@@ -2,27 +2,13 @@ class Main
 {
     function void main() 
     {
-        // Test BulletList Removal Rendering
-        do TestBulletList.testRenderBulletListSingleBullet();
-        do Sys.wait(500);
-        do TestBulletList.testRenderBulletListFrontRemoval();
-        do Sys.wait(500);
-        do TestBulletList.testRenderBulletListMiddleRemoval();
-        do Sys.wait(500);
-        do TestBulletList.testRenderBulletListBackRemoval();
+        // do Logger.logString("Empty Lists", null);
+        // do Sys.wait(500);
+        // do TestCollisions.testCollisionsEmptyLists();
 
-        // Test BulletList Add Rendering
-        do TestBulletList.testRenderListBulletAdd();
+        do Logger.logString("Short Lists", null);
         do Sys.wait(500);
-        do TestBulletList.testRenderListBulletAddToEmpty();
-        do Sys.wait(500);
-        do TestBulletList.testRenderListBulletAddTo2();
-        do Sys.wait(500);
-
-        // Test BulletList Movement + Rendering
-        do TestBulletList.testRenderBulletListAndMove();
-        do Sys.wait(500);
-
+        do TestCollisions.testCollisions();
         return;
     }
 }

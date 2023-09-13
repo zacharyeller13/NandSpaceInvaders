@@ -21,7 +21,6 @@ class InvaderList
         {
             do next.dispose();
         }
-        do data.dispose();
         do Memory.deAlloc(this);
         return;
     }
@@ -85,7 +84,7 @@ class InvaderList
 
             if (~(next = null))
             {
-                do Logger.logString("Moving data up", null);
+                do Logger.logString("Moving invader data up", null);
                 do data.dispose();
                 let data = next.getData();
                 let previous = next;
@@ -97,11 +96,15 @@ class InvaderList
             }
             else
             {
+                do data.dispose();
                 do dispose();
                 let data = null;
             }
             return;
         }
+
+        //logging
+        do Logger.logString("this != invaderToRemove", null);
 
         // Iterating through list to check each node
         let previous = this;

@@ -1,0 +1,52 @@
+class TestCollisions
+{
+    /** Testing if BulletList and/or InvaderList is empty */
+    function void testCollisionsEmptyLists()
+    {
+        // Test Bullet/Invader Collisions
+        var InvaderList testInvaders;
+        var BulletList testBullets;
+    
+        // Define empty lists, as in the start of the game
+        let testInvaders = InvaderList.new(null, null);
+        let testBullets = BulletList.new(null, null);
+        do Renderer.renderState(null, testBullets, testInvaders);
+        do Sys.wait(1000);
+        do CollisionChecker.checkBulletCollisions(testBullets, testBullets, testInvaders);
+        do Sys.wait(1000);
+        return;
+    }
+
+    /** Testing lists of length 2 */
+    function void testCollisions()
+    {
+        // Test Bullet/Invader Collisions
+        var InvaderList testInvaders;
+        var BulletList testBullets;
+    
+        // Define lists, as in the start of the game
+        let testInvaders = InvaderList.new(
+            Invader.new(200,200), InvaderList.new(
+                Invader.new(250, 150), null
+            )
+        );
+        let testBullets = BulletList.new(
+            Bullet.new(200,200), BulletList.new(
+                Bullet.new(250,150), null
+            )
+        );
+
+        do testInvaders.printList();
+        do Sys.wait(1000);
+        do Renderer.renderState(null, testBullets, testInvaders);
+        do Sys.wait(1000);
+        do CollisionChecker.checkBulletCollisions(testBullets, testBullets, testInvaders);
+        do Sys.wait(2000);
+        do Renderer.renderState(null, testBullets, testInvaders);
+        do Sys.wait(1000);
+
+        do testBullets.printList();
+        do testInvaders.printList();
+        return;
+    }
+}
