@@ -1,4 +1,6 @@
-/** Implement a singly linked list of invaders */
+/** Implement a singly linked list of invaders.
+  * There's probably some jank way I could figure out to make a generic list
+  * But I haven't tried to work through that yet, so this will work for now */
 class InvaderList 
 {
     field Invader data; // current Invader
@@ -38,7 +40,11 @@ class InvaderList
         while (~(current = null))
         {
             let currentInvader = current.getData();
-            do currentInvader.move();
+            // If this is an empty list, currentInvader will be null
+            if (~(currentInvader = null))
+            {
+                do currentInvader.move();
+            }
             let current = current.getNext();
         }
         return;
