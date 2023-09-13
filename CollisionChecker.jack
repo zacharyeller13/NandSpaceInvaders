@@ -1,7 +1,11 @@
 /** Implements collision checking logic */
 class CollisionChecker
 {
-    /** Check 1 bullet against all invaders */
+    /** Check 1 bullet against all invaders 
+      * And remove it if collision found
+      * Maybe we change this from void to boolean to allow the calling function
+      * to know if we should advance to the next item in the list or stay b/c
+      * the current item has already been replaced with the next */
     function void checkBulletCollisions(BulletList bulletToCheck, BulletList bullets, InvaderList invaders)
     {
         var Invader currentInvader;
