@@ -64,6 +64,10 @@ class BulletList
                     let current = current.getNext();
                 }
             }
+            else
+            {
+                return;
+            }
 
         }
         return;

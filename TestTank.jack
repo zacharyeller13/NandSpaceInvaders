@@ -1,0 +1,26 @@
+/** Test methods for Tank */
+class TestTank
+{
+    function void testTankFiring()
+    {
+        var Tank tank;
+        var BulletList bullets;
+        let tank = Tank.new();
+        let bullets = BulletList.new(null, null);
+
+        while(true)
+        {
+            do tank.move();
+            do bullets.move();
+            do Renderer.renderState(tank, bullets, null);
+            do Sys.wait(200);
+
+            if (Keyboard.keyPressed() = 32)
+            {
+                do bullets.add(tank.fire());
+            }
+        }
+
+        return;
+    }
+}

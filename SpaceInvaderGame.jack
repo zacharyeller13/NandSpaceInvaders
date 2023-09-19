@@ -11,7 +11,9 @@ class SpaceInvaderGame
     constructor SpaceInvaderGame new()
     {
         let tank = Tank.new();
-        let invaders = InvaderList.new(Invader.new(200,0), null);
+        // Initialize empty lists
+        let invaders = InvaderList.new(null, null);
+        let bullets = BulletList.new(null, null);
         return this;
     }
 
@@ -38,42 +40,15 @@ class SpaceInvaderGame
         do tank.move();
         do invaders.move();
         do bullets.move();
-        // do checkCollisions();
+        // Firing a new bullet
+        if (Keyboard.keyPressed() = 32)
+        {
+            do bullets.add(tank.fire());
+        }
+
+        // Checking all bullets/invaders for collisions
         // TODO: Check collisions and update invaders and bullets.  Maybe do during move(); refactor out of List
         // TODO: Check game over
-        return;
-    }
-
-    /** Check collision between all bullets and all invaders
-      * To find hits */
-    method void checkCollisions()
-    {
-        var BulletList remainingBullets;
-        var BulletList currentBullets;
-        var Bullet currentBullet;
-        var InvaderList currentInvaders;
-        var Invader currentInvader;
-        let currentBullets = bullets;
-        let currentInvaders = invaders;
-        
-        while (~(currentBullets = null))
-        {
-            while (~(currentInvaders = null))
-            {
-                let currentBullet = currentBullets.getData();
-                let currentInvader = currentInvaders.getData();
-
-                // Check that currentBullet and currentInvader are not null
-                // As if there was only 1 item and they were removed, it would be an empty list
-                if (~(currentBullet = null) | ~(currentInvader = null))
-                {
-
-                }
-                let currentInvaders = currentInvaders.getNext();
-            }
-            let currentBullets = currentBullets.getNext();
-        }
-        let bullets = remainingBullets;
         return;
     }
 
