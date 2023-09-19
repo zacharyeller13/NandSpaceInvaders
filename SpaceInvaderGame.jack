@@ -11,7 +11,9 @@ class SpaceInvaderGame
     constructor SpaceInvaderGame new()
     {
         let tank = Tank.new();
-        let invaders = InvaderList.new(Invader.new(200,0), null);
+        // Initialize empty lists
+        let invaders = InvaderList.new(null, null);
+        let bullets = BulletList.new(null, null);
         return this;
     }
 
@@ -38,7 +40,13 @@ class SpaceInvaderGame
         do tank.move();
         do invaders.move();
         do bullets.move();
-        // do checkCollisions();
+        // Firing a new bullet
+        if (Keyboard.keyPressed() = 32)
+        {
+            do bullets.add(tank.fire());
+        }
+
+        // Checking all bullets/invaders for collisions
         // TODO: Check collisions and update invaders and bullets.  Maybe do during move(); refactor out of List
         // TODO: Check game over
         return;
