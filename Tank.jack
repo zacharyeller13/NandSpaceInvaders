@@ -28,7 +28,9 @@ class Tank
 
     /** Accessors */
     method int getX() { return x; }
+    method void setX(int newX) { let x = newX; do updateLocation(); return; }
     method int getY() { return y; }
+    method void setY(int newY) { let y = newY; do updateLocation(); return; }
     method int getLocation() { return location; }
     method Array getPixels() { return pixels; }
 
@@ -121,7 +123,12 @@ class Tank
     method Bullet fire()
     {
         var Bullet bullet;
-        let bullet = Bullet.new(x, y - 5);
+        var int bulletX;
+        
+        // Need to calculate bulletX because we're ~pixel-perfect on the bullet placement
+        // Whereas tank will be in-between every 16-bits
+        let bulletX = ((x / 16) * 16) + 7; // +7 to get to barrel placement
+        let bullet = Bullet.new(bulletX, y - 5);
         return bullet;
     }
 

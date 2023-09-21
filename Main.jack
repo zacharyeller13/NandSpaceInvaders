@@ -2,7 +2,8 @@ class Main
 {
     function void main() 
     {
-        do TestTank.testTankFiring();
+        // do TestGame.testGameCollisions();
+        do TestCollisions.testCollisions();
         return;
     }
 }

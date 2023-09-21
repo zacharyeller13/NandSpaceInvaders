@@ -17,11 +17,11 @@ class Renderer
         {
             do Renderer.renderObject(tank.getLocation(), tank.getPixels());
         }
-
+        
         while (~(currentInvaders = null))
         {
             let currentInvader = currentInvaders.getData();
-
+            
             // If this is an empty list, getData() will return null
             if (~(currentInvader = null))
             {
@@ -29,7 +29,7 @@ class Renderer
             }
             let currentInvaders = currentInvaders.getNext();
         }
-
+        
         while (~(currentBullets = null))
         {
             let currentBullet = currentBullets.getData();
@@ -37,7 +37,9 @@ class Renderer
             // If this is an empty list, getData() will return null
             if (~(currentBullet = null))
             {
-                do Renderer.renderObject(currentBullet.getLocation(), currentBullet.getPixels());
+                // Not using generic renderObject, as this is a basic sprite and drawRectangle is easier
+                // and more pixel-perfect
+                do Renderer.renderBullet(currentBullet);
             }
             let currentBullets = currentBullets.getNext();
         }
@@ -61,6 +63,26 @@ class Renderer
             }
             let i = i + 1;
         }
+        return;
+    }
+
+    /** Render any bullet by passing the object. Because bullets are a simple shape
+      * This makes more sense for pixel placement than using the generic renderObject method */
+    function void renderBullet(Bullet bullet)
+    {
+        var int x1;
+        var int y1;
+        var int x2;
+        var int y2;
+        
+        // Unlike before, we do not need the +7 as we're not using a full 16 bits
+        let x1 = bullet.getX();
+        let y1 = bullet.getY();
+        // -1 as it will include the last pixel
+        let x2 = x1 + bullet.getWidth() - 1; 
+        let y2 = y1 + bullet.getHeight() - 1; 
+
+        do Screen.drawRectangle(x1, y1, x2, y2);
         return;
     }
 

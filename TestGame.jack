@@ -1,0 +1,19 @@
+class TestGame
+{
+    function void testGameCollisions()
+    {
+        var SpaceInvaderGame game;
+        let game = SpaceInvaderGame.new();
+
+        do game.setInvaders(InvaderList.new(Invader.new(200,0), null));
+
+        while (true)
+        {
+            do Renderer.renderState(game.getTank(), game.getBullets(), game.getInvaders());
+            do game.updateState();
+            do Sys.wait(250);
+        }
+
+        return;
+    }
+}

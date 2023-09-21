@@ -37,6 +37,9 @@ class SpaceInvaderGame
     /** Update game state */
     method void updateState()
     {
+        var BulletList iterBullets;
+        var boolean removed;
+
         do tank.move();
         do invaders.move();
         do bullets.move();
@@ -47,7 +50,21 @@ class SpaceInvaderGame
         }
 
         // Checking all bullets/invaders for collisions
-        // TODO: Check collisions and update invaders and bullets.  Maybe do during move(); refactor out of List
+        // If the checked bullet is removed, re-check, as the node will have been moved up
+        let iterBullets = bullets;
+        while (~(iterBullets = null))
+        {
+            let removed = CollisionChecker.checkBulletCollisions(iterBullets, bullets, invaders);
+            if (~(removed))
+            {
+                let iterBullets = iterBullets.getNext();
+            }
+            else
+            {
+                do Logger.logString("Destroyed an Invader", null);
+                return;
+            }
+        }
         // TODO: Check game over
         return;
     }
