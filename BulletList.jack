@@ -52,7 +52,7 @@ class BulletList
                 do currentBullet.move();
     
                 // Exiting screen - dispose and shift list up
-                if (currentBullet.getY() < (-currentBullet.getHeight()))
+                if (currentBullet.getY() < 0)
                 {
                     let temp = current.getNext();
                     do head.remove(current);

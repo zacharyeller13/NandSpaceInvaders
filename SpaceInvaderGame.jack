@@ -59,11 +59,6 @@ class SpaceInvaderGame
             {
                 let iterBullets = iterBullets.getNext();
             }
-            else
-            {
-                do Logger.logString("Destroyed an Invader", null);
-                return;
-            }
         }
         // TODO: Check game over
         return;

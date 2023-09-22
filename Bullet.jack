@@ -13,8 +13,6 @@ class Bullet
         let width = 2;
         let height = 4;
         let bullet_speed = 2;
-        let location = (32 * y) + (x / 16);
-        do initPixels();
         return this;
     }
     

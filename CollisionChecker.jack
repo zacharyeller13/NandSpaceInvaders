@@ -36,17 +36,15 @@ class CollisionChecker
 
             if (CollisionChecker.checkCollision(bulletData, currentInvader))
             {
-                // Logging
-                do Logger.logInt(bulletData.getX(), "Bullet Left");
-                do Logger.logInt(bulletData.getY(), "Bullet Top");
-                do Logger.logInt(currentInvader.getX(), "Invader Left");
-                do Logger.logInt(currentInvader.getY(), "Invader Top");
-                do Logger.logInt(bulletData.getX() + bulletData.getWidth(), "Bullet Right");
-                do Logger.logInt(bulletData.getY() + bulletData.getHeight(), "Bullet Bottom");
-                do Logger.logInt(currentInvader.getX() + currentInvader.getWidth(), "Invader Right");
-                do Logger.logInt(currentInvader.getY() + currentInvader.getHeight(), "Invader Bottom");
-
-
+                do Logger.logInt(bulletData.getX(), "BulletLeft");
+                do Logger.logInt(bulletData.getX() + bulletData.getWidth(), "BulletRight");
+                do Logger.logInt(bulletData.getY(), "BulletTop");
+                do Logger.logInt(bulletData.getY() + bulletData.getHeight(), "BulletBottom");
+                do Logger.logInt(currentInvader.getX(), "InvaderLeft");
+                do Logger.logInt(currentInvader.getX() + currentInvader.getWidth(), "InvaderRight");
+                do Logger.logInt(currentInvader.getY(), "InvaderTop");
+                do Logger.logInt(currentInvader.getY() + currentInvader.getHeight(), "InvaderBottom");
+                do Sys.wait(1000);
                 do bullets.remove(bulletToCheck);
                 do invadersHead.remove(invaders);
                 return true;
