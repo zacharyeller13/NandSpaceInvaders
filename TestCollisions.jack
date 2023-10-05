@@ -75,4 +75,20 @@ class TestCollisions
         do Renderer.renderState(tank, bullets, invaders);
         return;
     }
+
+    function void testInvaderLandedCollisions()
+    {
+        var InvaderList invaders;
+        var Invader invader;
+
+        let invaders = InvaderList.new(Invader.new(342, 255 - 9), null);
+        let invader = invaders.getData();
+        do invaders.move();
+        do Renderer.renderState(null, null, invaders);
+        if (invader.landed())
+        {
+            do Output.printString("landed");
+        }
+        return;
+    }
 }

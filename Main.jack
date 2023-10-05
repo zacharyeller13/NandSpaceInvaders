@@ -2,8 +2,8 @@ class Main
 {
     function void main() 
     {
-        do TestGame.testGameCollisions();
-        // do TestCollisions.testCollisions();
+        // do TestGame.testGameCollisions();
+        do TestCollisions.testInvaderLandedCollisions();
         return;
     }
 }
