@@ -103,4 +103,29 @@ class CollisionChecker
         // do Logger.logString("Hit", null);
         return true;
     }
+
+    /** Check invader collisions with the floor/bottom of the screen
+      * by accessing invader.landed */
+    function boolean checkInvadersLanded(InvaderList invaders)
+    {
+        var Invader currentInvader;
+
+        while (~(invaders = null))
+        {
+            let currentInvader = invaders.getData();
+            if (currentInvader = null)
+            {
+                return false;
+            }
+
+            if (currentInvader.landed())
+            {
+                return true;
+            }
+
+            let invaders = invaders.getNext();
+
+        }
+        return false;
+    }
 }

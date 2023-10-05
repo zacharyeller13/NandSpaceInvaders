@@ -4,6 +4,7 @@ class Invader
     field int x, y; // screen coordinates of the invader
     field int width, height; // sprite width and heigth
     field int direction; // 1 or -1 for right vs left
+    field boolean landed;
     field int location; // mapped memory location of x,y coordinates
     field Array pixels; // Represents all pixels of the sprite
 
@@ -16,6 +17,7 @@ class Invader
         let height = 9;
         let direction = 1;
         let location = (32 * y) + (x / 16);
+        let landed = false;
         do initPixels();
         return this;
     }
@@ -32,6 +34,7 @@ class Invader
     method int getY() { return y; }
     method int getWidth() { return width; }
     method int getHeight() { return height; }
+    method boolean landed() { return landed; }
     method int getLocation() { return location; }
     method Array getPixels() { return pixels; }
 
@@ -65,6 +68,9 @@ class Invader
             let x = x + (width * direction);
             let y = y + 2;
             let location = (32 * y) + (x / 16);
+        }
+        else {
+            let landed = true;
         }
         return;
     }

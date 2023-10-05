@@ -5,7 +5,7 @@ class SpaceInvaderGame
     field InvaderList invaders; // All invaders
     field BulletList bullets; // All bullets
     field Renderer renderer; // To render frames
-    field boolean isGameOver;
+    field boolean gameOver;
     field int frameNum;
 
     constructor SpaceInvaderGame new()
@@ -49,6 +49,8 @@ class SpaceInvaderGame
             do bullets.add(tank.fire());
         }
 
+        // TODO: Generate new invaders every n frames
+
         // Checking all bullets/invaders for collisions
         // If the checked bullet is removed, re-check, as the node will have been moved up
         let iterBullets = bullets;
@@ -60,7 +62,11 @@ class SpaceInvaderGame
                 let iterBullets = iterBullets.getNext();
             }
         }
-        // TODO: Check game over
+
+        if (CollisionChecker.checkInvadersLanded(invaders))
+        {
+            let gameOver = true;
+        }
         return;
     }
 
