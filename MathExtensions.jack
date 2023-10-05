@@ -1,0 +1,16 @@
+/** Purely for implementing modulo.
+  * Though may use for other functions later */
+class MathExtensions
+{
+    /** Returns the modulus of 2 integers */
+    function int mod(int x, int n)
+    {
+        var int q;
+        var int p;
+
+        let q = x / n;
+        let p = n * q;
+
+        return x - p;
+    }
+}
