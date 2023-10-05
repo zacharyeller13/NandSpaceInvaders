@@ -49,4 +49,30 @@ class TestCollisions
         do testInvaders.printList();
         return;
     }
+
+    function void testSpecificCollision()
+    {
+        // Bullet Left: 342
+        // Bullet X: 335
+        // Bullet Top: 148
+        // Invader Left: 344
+        // Invader Top: 142
+        // Bullet Right: 344
+        // Bullet Bottom: 152
+        // Invader Right: 360
+        // Invader Bottom: 151
+
+        var BulletList bullets;
+        var InvaderList invaders;
+        var Tank tank;
+
+        let tank = Tank.new();
+        do tank.setX(200);
+        // let bullets = BulletList.new(Bullet.new(336, 148), null);
+        let bullets = BulletList.new(tank.fire(), null);
+        let invaders = InvaderList.new(Invader.new(342, 142), null);
+
+        do Renderer.renderState(tank, bullets, invaders);
+        return;
+    }
 }

@@ -3,10 +3,9 @@ class CollisionChecker
 {
     /** Check 1 bullet against all invaders 
       * And remove it if collision found
-      * Maybe we change this from void to boolean to allow the calling function
-      * to know if we should advance to the next item in the list or stay b/c
-      * the current item has already been replaced with the next */
-    function void checkBulletCollisions(BulletList bulletToCheck, BulletList bullets, InvaderList invaders)
+      * Return true if bullet was removed so that calling function can
+      * Know to continue iterating or re-check */
+    function boolean checkBulletCollisions(BulletList bulletToCheck, BulletList bullets, InvaderList invaders)
     {
         var Invader currentInvader;
         var Bullet bulletData;
@@ -18,33 +17,45 @@ class CollisionChecker
         // Return early if this is an empty list
         if (bulletData = null)
         {
-            return;
+            return false;
         }
 
         while (~(invaders = null))
         {
             // logging
-            do Logger.logString("Getting Invader Data ", null);
+            // do Logger.logString("Getting Invader Data ", null);
 
             let currentInvader = invaders.getData();
-
-            // logging
-            do Logger.logString("checking collision ", null);
-
-            if (CollisionChecker.checkCollision(bulletData, currentInvader))
+            if (currentInvader = null)
             {
-                do Logger.logString("Removing here", null);
-                do bullets.remove(bulletToCheck);
-                do invadersHead.remove(invaders);
-                return;
+                return false;
             }
 
             // logging
-            do Logger.logString("Finished checking", null);
+            // do Logger.logString("checking collision ", null);
+
+            if (CollisionChecker.checkCollision(bulletData, currentInvader))
+            {
+                do Logger.logInt(bulletData.getX(), "BulletLeft");
+                do Logger.logInt(bulletData.getX() + bulletData.getWidth(), "BulletRight");
+                do Logger.logInt(bulletData.getY(), "BulletTop");
+                do Logger.logInt(bulletData.getY() + bulletData.getHeight(), "BulletBottom");
+                do Logger.logInt(currentInvader.getX(), "InvaderLeft");
+                do Logger.logInt(currentInvader.getX() + currentInvader.getWidth(), "InvaderRight");
+                do Logger.logInt(currentInvader.getY(), "InvaderTop");
+                do Logger.logInt(currentInvader.getY() + currentInvader.getHeight(), "InvaderBottom");
+                do Sys.wait(1000);
+                do bullets.remove(bulletToCheck);
+                do invadersHead.remove(invaders);
+                return true;
+            }
+
+            // logging
+            // do Logger.logString("Finished checking", null);
 
             let invaders = invaders.getNext();
         }
-        return;
+        return false;
     }
 
     /** Check a collision between 1 bullet and 1 invader 
@@ -56,25 +67,25 @@ class CollisionChecker
         var int bulletTop, bulletBottom, bulletLeft, bulletRight;
         var int invaderTop, invaderBottom, invaderLeft, invaderRight;
         let bulletTop = bullet.getY();
-        let bulletLeft = bullet.getX() + 7; // 7 being the center of the sprite
+        let bulletLeft = bullet.getX();
         let bulletBottom = bullet.getY() + bullet.getHeight();
-        let bulletRight = bullet.getX() + 7 + bullet.getWidth();
+        let bulletRight = bullet.getX() + bullet.getWidth();
         let invaderTop = invader.getY();
         let invaderLeft = invader.getX();
         let invaderBottom = invader.getY() + invader.getHeight();
         let invaderRight = invader.getX() + invader.getWidth();
 
         // logging
-        do Logger.logInt(bulletLeft, "bulletLeft");
-        do Logger.logInt(invaderRight, "invaderRight");
-        do Sys.wait(500);
+        // do Logger.logInt(bulletLeft, "bulletLeft");
+        // do Logger.logInt(invaderRight, "invaderRight");
+        // do Sys.wait(500);
         
         // Check horizontal collision
         if ((bulletLeft > invaderRight)
             | (invaderLeft > bulletRight))
         {
             // logging
-            do Logger.logString("Left or right; exiting", null);
+            // do Logger.logString("Left or right; exiting", null);
 
             return false;
         }
@@ -85,11 +96,11 @@ class CollisionChecker
             | (invaderBottom < bulletTop))
         {
             // logging
-            do Logger.logString("Below or above; exiting", null);
+            // do Logger.logString("Below or above; exiting", null);
 
             return false;
         }
-        do Logger.logString("Hit", null);
+        // do Logger.logString("Hit", null);
         return true;
     }
 }
