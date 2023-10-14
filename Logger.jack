@@ -18,7 +18,7 @@ class Logger
         do Logger.printLabel(label);
         do Output.printInt(intToLog);
         do Output.println();
-        do Sys.wait(500);
+        // do Sys.wait(500);
         return;
     }
 

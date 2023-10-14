@@ -121,7 +121,6 @@ class BulletList
             else
             {
                 do data.dispose();
-                do dispose();
                 let data = null;
             }
             return;
