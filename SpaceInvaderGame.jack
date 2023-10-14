@@ -23,6 +23,7 @@ class SpaceInvaderGame
         do tank.dispose();
         do invaders.dispose();
         do bullets.dispose();
+
         do Memory.deAlloc(this);
         return;
     }
@@ -48,9 +49,7 @@ class SpaceInvaderGame
         {
             do bullets.add(tank.fire());
         }
-
-        // TODO: Generate new invaders every n frames
-
+        
         // Checking all bullets/invaders for collisions
         // If the checked bullet is removed, re-check, as the node will have been moved up
         let iterBullets = bullets;
@@ -62,11 +61,22 @@ class SpaceInvaderGame
                 let iterBullets = iterBullets.getNext();
             }
         }
-
+        
         if (CollisionChecker.checkInvadersLanded(invaders))
         {
             let gameOver = true;
         }
+        
+        // TODO: Generate new invaders every n frames
+        let frameNum = frameNum + 1;
+        
+        if (MathExtensions.mod(frameNum, 10) = 0)
+        {
+            do generateInvaders();
+        }
+        do Sys.wait(150);
+            
+
         return;
     }
 
@@ -77,4 +87,20 @@ class SpaceInvaderGame
     }
 
     // TODO: Display a loss message
+
+    /** Generate new invaders using frameNum to determine initial x position */
+    method void generateInvaders()
+    {
+        var int x;
+
+        // Not really a great random number generator, but works okay
+        // Peek at stack pointer, plus do some other calculations
+        let x = (frameNum + Memory.peek(0)) * (frameNum / 3);
+        
+        // fit comfortably within the screen width
+        let x = MathExtensions.mod(x, 500); 
+        
+        do invaders.add(Invader.new(x, 0));
+        return;
+    }
 }

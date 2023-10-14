@@ -3,7 +3,8 @@ class Main
     function void main() 
     {
         // do TestGame.testGameCollisions();
-        do TestCollisions.testInvaderLandedCollisions();
+        // do TestCollisions.testInvaderLandedCollisions();
+        do TestGame.testGameCollisions();
         return;
     }
 }

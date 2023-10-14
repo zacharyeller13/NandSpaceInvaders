@@ -3,15 +3,15 @@ class TestGame
     function void testGameCollisions()
     {
         var SpaceInvaderGame game;
+        var InvaderList invaders;
         let game = SpaceInvaderGame.new();
 
-        do game.setInvaders(InvaderList.new(Invader.new(200,0), null));
+        do game.setInvaders(InvaderList.new(Invader.new(100,200), null));
 
         while (true)
         {
             do Renderer.renderState(game.getTank(), game.getBullets(), game.getInvaders());
             do game.updateState();
-            do Sys.wait(250);
         }
 
         return;
