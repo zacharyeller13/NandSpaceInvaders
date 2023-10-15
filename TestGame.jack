@@ -8,11 +8,8 @@ class TestGame
 
         do game.setInvaders(InvaderList.new(Invader.new(100,200), null));
 
-        while (true)
-        {
-            do Renderer.renderState(game.getTank(), game.getBullets(), game.getInvaders());
-            do game.updateState();
-        }
+        do game.run();
+        do Sys.halt();
 
         return;
     }

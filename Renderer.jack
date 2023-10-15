@@ -87,10 +87,13 @@ class Renderer
     }
 
     /** Clear the screen and render a game-over message */
-    function void renderGameOver()
+    function void renderGameOver(int destroyedInvaders)
     {
         do Screen.clearScreen();
         do Output.printString("GAME OVER");
+        do Output.println();
+        do Output.printString("Destroyed Invaders: ");
+        do Output.printInt(destroyedInvaders);
         return;
     }
 }

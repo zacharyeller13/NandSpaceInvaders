@@ -4,9 +4,9 @@ class SpaceInvaderGame
     field Tank tank; // Player
     field InvaderList invaders; // All invaders
     field BulletList bullets; // All bullets
-    field Renderer renderer; // To render frames
     field boolean gameOver;
     field int frameNum;
+    field int destroyedInvaders;
 
     constructor SpaceInvaderGame new()
     {
@@ -44,6 +44,7 @@ class SpaceInvaderGame
         do tank.move();
         do invaders.move();
         do bullets.move();
+
         // Firing a new bullet
         if (Keyboard.keyPressed() = 32)
         {
@@ -60,36 +61,47 @@ class SpaceInvaderGame
             {
                 let iterBullets = iterBullets.getNext();
             }
+            else
+            {
+                let destroyedInvaders = destroyedInvaders + 1;
+            }
         }
         
+        // Generate new invaders every 10 frames
+        if (MathExtensions.mod(frameNum, 10) = 0)
+        {
+            do generateInvader();
+        }
+
+        // Check if the game is over because an invader has landed
         if (CollisionChecker.checkInvadersLanded(invaders))
         {
             let gameOver = true;
         }
         
-        // TODO: Generate new invaders every n frames
         let frameNum = frameNum + 1;
-        
-        if (MathExtensions.mod(frameNum, 10) = 0)
-        {
-            do generateInvaders();
-        }
+
+        // Determines the speed of the game
+        // If set to 0, the game will move waaaaay too fast
         do Sys.wait(150);
             
-
         return;
     }
 
     // TODO: Run game infinitely until a spaceship lands signifiying a loss
     method void run()
     {
+        while (~gameOver)
+        {
+            do updateState();
+            do Renderer.renderState(tank, bullets, invaders);
+        }
+        do Renderer.renderGameOver(destroyedInvaders);
         return;
     }
 
-    // TODO: Display a loss message
-
     /** Generate new invaders using frameNum to determine initial x position */
-    method void generateInvaders()
+    method void generateInvader()
     {
         var int x;
 

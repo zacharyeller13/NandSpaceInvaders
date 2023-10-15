@@ -22,36 +22,18 @@ class CollisionChecker
 
         while (~(invaders = null))
         {
-            // logging
-            // do Logger.logString("Getting Invader Data ", null);
-
             let currentInvader = invaders.getData();
             if (currentInvader = null)
             {
                 return false;
             }
 
-            // logging
-            // do Logger.logString("checking collision ", null);
-
             if (CollisionChecker.checkCollision(bulletData, currentInvader))
             {
-                do Logger.logInt(bulletData.getX(), "BulletLeft");
-                do Logger.logInt(bulletData.getX() + bulletData.getWidth(), "BulletRight");
-                do Logger.logInt(bulletData.getY(), "BulletTop");
-                do Logger.logInt(bulletData.getY() + bulletData.getHeight(), "BulletBottom");
-                do Logger.logInt(currentInvader.getX(), "InvaderLeft");
-                do Logger.logInt(currentInvader.getX() + currentInvader.getWidth(), "InvaderRight");
-                do Logger.logInt(currentInvader.getY(), "InvaderTop");
-                do Logger.logInt(currentInvader.getY() + currentInvader.getHeight(), "InvaderBottom");
-                do Sys.wait(1000);
                 do bullets.remove(bulletToCheck);
                 do invadersHead.remove(invaders);
                 return true;
             }
-
-            // logging
-            // do Logger.logString("Finished checking", null);
 
             let invaders = invaders.getNext();
         }
@@ -74,19 +56,11 @@ class CollisionChecker
         let invaderLeft = invader.getX();
         let invaderBottom = invader.getY() + invader.getHeight();
         let invaderRight = invader.getX() + invader.getWidth();
-
-        // logging
-        // do Logger.logInt(bulletLeft, "bulletLeft");
-        // do Logger.logInt(invaderRight, "invaderRight");
-        // do Sys.wait(500);
         
         // Check horizontal collision
         if ((bulletLeft > invaderRight)
             | (invaderLeft > bulletRight))
         {
-            // logging
-            // do Logger.logString("Left or right; exiting", null);
-
             return false;
         }
 
@@ -95,12 +69,8 @@ class CollisionChecker
         if ((bulletBottom < invaderTop)
             | (invaderBottom < bulletTop))
         {
-            // logging
-            // do Logger.logString("Below or above; exiting", null);
-
             return false;
         }
-        // do Logger.logString("Hit", null);
         return true;
     }
 
