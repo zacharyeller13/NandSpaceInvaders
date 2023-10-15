@@ -34,7 +34,6 @@ class BulletList
     {
         var BulletList current;
         var Bullet currentBullet;
-        var BulletList previous;
         var BulletList temp;
         var BulletList head;
 
@@ -60,7 +59,6 @@ class BulletList
                 }
                 else
                 {
-                    let previous = current;
                     let current = current.getNext();
                 }
             }
