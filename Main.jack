@@ -2,9 +2,9 @@ class Main
 {
     function void main() 
     {
-        // do TestGame.testGameCollisions();
-        // do TestCollisions.testInvaderLandedCollisions();
-        do TestGame.testGameCollisions();
+        var SpaceInvaderGame game;
+        let game = SpaceInvaderGame.new();
+        do game.run();
         return;
     }
 }

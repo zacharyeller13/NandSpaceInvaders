@@ -80,11 +80,8 @@ class InvaderList
         // Base case on the head node
         if (this = invaderToRemove)
         {
-            do Logger.logString("this = invaderToRemove", null);
-
             if (~(next = null))
             {
-                do Logger.logString("Moving invader data up", null);
                 do data.dispose();
                 let data = next.getData();
                 let previous = next;
@@ -101,9 +98,6 @@ class InvaderList
             }
             return;
         }
-
-        //logging
-        do Logger.logString("this != invaderToRemove", null);
 
         // Iterating through list to check each node
         let previous = this;

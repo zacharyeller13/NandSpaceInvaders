@@ -104,11 +104,8 @@ class BulletList
         // Base case on head node
         if (this = bulletToRemove)
         {
-            do Logger.logString("this = bulletToRemove", null);
-            
             if (~(next = null))
             {
-                do Logger.logString("Moving data up", null);
                 do data.dispose();
                 let data = next.getData();
                 let previous = next;
@@ -125,9 +122,6 @@ class BulletList
             }
             return;
         }
-
-        // logging
-        do Logger.logString("this != bulletToRemove", null);
 
         // Iterating through bullets to check each node
         let previous = this;
