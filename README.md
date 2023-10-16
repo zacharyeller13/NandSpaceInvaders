@@ -25,7 +25,7 @@ A simple space invaders game written in Jack for [Nand2Tetris Part II](https://w
 
 ## Ending the Game
 
-There is no real "winning" mechanism.  The game will keep track of how many invaders you destroy and will end when any 1 invader successfully lands.  It will then output a "GAME OVER" message as well as the count of destory invaders.
+There is no real "winning" mechanism.  The game will keep track of how many invaders you destroy and will end when any 1 invader successfully lands.  It will then output a "GAME OVER" message as well as the count of destroyed invaders.
 
 ## Additional Notes
 
