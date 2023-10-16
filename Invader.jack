@@ -1,55 +1,105 @@
 /** Implements an invader */
-class Invader {
-    
+class Invader 
+{
     field int x, y; // screen coordinates of the invader
+    field int width, height; // sprite width and heigth
+    field int direction; // 1 or -1 for right vs left
+    field boolean landed;
     field int location; // mapped memory location of x,y coordinates
+    field Array pixels; // Represents all pixels of the sprite
 
     /** Constructs a new invader with the given location */
-    constructor Invader new(int Ax, int Ay) {
+    constructor Invader new(int Ax, int Ay) 
+    {
         let x = Ax;
         let y = Ay;
+        let width = 16;
+        let height = 9;
+        let direction = 1;
         let location = (32 * y) + (x / 16);
-        do draw(location);
+        let landed = false;
+        do initPixels();
         return this;
     }
-
+    
     /** Disposes the Invader */
-    method void dispose() {
+    method void dispose() 
+    {
         do Memory.deAlloc(this);
         return;
     }
+    
+    /** Instance-level Accessors */
+    method int getX() { return x; }
+    method int getY() { return y; }
+    method int getWidth() { return width; }
+    method int getHeight() { return height; }
+    method boolean landed() { return landed; }
+    method int getLocation() { return location; }
+    method Array getPixels() { return pixels; }
 
-    /** Draws this invader on the screen */
-    method void draw(int location) {
-        var int memAddress;
-        let memAddress = 16384+location;
-        do Memory.poke(memAddress+0, 2016);
-        do Memory.poke(memAddress+32, 2064);
-        do Memory.poke(memAddress+64, 4104);
-        do Memory.poke(memAddress+96, 4104);
-        do Memory.poke(memAddress+128, 32766);
-        do Memory.poke(memAddress+160, -32767);
-        do Memory.poke(memAddress+192, -32767);
-        do Memory.poke(memAddress+224, -32767);
-        do Memory.poke(memAddress+256, 32766);
-        // We only need the first 9 rows, not a full 16
+    /** Initialize the pixels array */
+    method void initPixels()
+    {
+        let pixels = Array.new(12);
+        let pixels[0] = 2016;
+        let pixels[1] = 2064;
+        let pixels[2] = 4104;
+        let pixels[3] = 4104;
+        let pixels[4] = 32766;
+        let pixels[5] = -32767;
+        let pixels[6] = -32767;
+        let pixels[7] = -32767;
+        let pixels[8] = 32766;
+        let pixels[9] = 0;
+        let pixels[10] = 0;
+        let pixels[11] = 0;
+
         return;
     }
 
-    /** Erases invader from the screen */
-    method void destroy() {
-        var int memAddress;
-        let memAddress = 16384+location;
-        do Memory.poke(memAddress+0, 0);
-        do Memory.poke(memAddress+32, 0);
-        do Memory.poke(memAddress+64, 0);
-        do Memory.poke(memAddress+96, 0);
-        do Memory.poke(memAddress+128, 0);
-        do Memory.poke(memAddress+160, 0);
-        do Memory.poke(memAddress+192, 0);
-        do Memory.poke(memAddress+224, 0);
-        do Memory.poke(memAddress+256, 0);
-        do dispose();
+    /** Moves invader down at an angle */
+    method void move() 
+    {
+        // Check that has not reached the bottom of the screen
+        if (y < (255 - height)) {
+            do checkWallCollision();
+
+            let x = x + (width * direction);
+            let y = y + 2;
+            let location = (32 * y) + (x / 16);
+        }
+        else {
+            let landed = true;
+        }
+        return;
+    }
+
+    /** Checks for collision on walls 
+      * changing direction when necessary */
+    method void checkWallCollision() 
+    {
+        if (direction = 1) 
+        {
+            if ((x + width) > 511) 
+            {
+                do changeDirection();
+            }
+        }
+        else 
+        {
+            if ((x - width) < 0) 
+            {
+                do changeDirection();
+            }
+        }
+        return;
+    }
+    
+    /** Change direction if hits wall */
+    method void changeDirection() 
+    {
+        let direction = direction * -1;
         return;
     }
 }

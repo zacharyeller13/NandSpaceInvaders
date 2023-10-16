@@ -1,0 +1,38 @@
+/** Implements a bullet; a simple class
+  * to move and track bullet location */
+class Bullet 
+{
+    field int x, y; // x, y coordinates
+    field int width, height, bullet_speed;
+
+    /** Instantiates a bullet at x,y coordinates */
+    constructor Bullet new(int Ax, int Ay)
+    {
+        let x = Ax;
+        let y = Ay;
+        let width = 2;
+        let height = 4;
+        let bullet_speed = 2;
+        return this;
+    }
+    
+    /** Deallocates memory for the bullet */
+    method void dispose()
+    {
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+    /** Instance-level accessors */
+    method int getX() { return x; }
+    method int getY() { return y; }
+    method int getWidth() { return width; }
+    method int getHeight() { return height; }
+
+    /** Moves this bullet straight up */
+    method void move()
+    {
+        let y = y - bullet_speed;
+        return;
+    }
+}

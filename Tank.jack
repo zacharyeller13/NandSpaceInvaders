@@ -1,0 +1,135 @@
+/** Implements a Tank, the playable unit */
+class Tank
+{
+    static int WIDTH, HEIGHT; // sprite width and height
+    field int x, y; // screen coordinates of the tank
+    field int direction; // -1, 0, or 1 for right, left, at rest
+    field int location; // mapped memory location of x,y coordinates
+    field Array pixels; // Sprite's pixels
+
+    /** Constructs a new Tank */
+    constructor Tank new() {
+        let WIDTH = 16;
+        let HEIGHT = 12;
+        let x = 511 / 2;
+        let y = 255 - HEIGHT;
+        let direction = 0;
+        let location = (32 * y) + (x / 16);
+        do pixelsInit();
+        return this;
+    }
+
+    /** Disposed the Tank from memory */
+    method void dispose()
+    {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Accessors */
+    method int getX() { return x; }
+    method void setX(int newX) { let x = newX; do updateLocation(); return; }
+    method int getY() { return y; }
+    method void setY(int newY) { let y = newY; do updateLocation(); return; }
+    method int getLocation() { return location; }
+    method Array getPixels() { return pixels; }
+
+    /** Draws Tank at its current screen coordinates */
+    method void pixelsInit()
+    {
+        let pixels = Array.new(12);
+        let pixels[0] = 896;
+        let pixels[1] = 640;
+        let pixels[2] = 640;
+        let pixels[3] = 640;
+        let pixels[4] = 4080;
+        let pixels[5] = 4104;
+        let pixels[6] = 32766;
+        let pixels[7] = -32767;
+        let pixels[8] = -32767;
+        let pixels[9] = 32766;
+        let pixels[10] = 17442;
+        let pixels[11] = 15324;
+        return;
+    }
+
+    /** Moves tank left or right depending on
+      * which key is currently pressed */
+    method void move()
+    {
+        do changeDirection();
+        do checkWallCollision();
+        let x = x + (direction * 16);
+        do updateLocation();
+        return;
+    }
+    
+    /** Checks for collision on walls 
+      * changing direction when necessary */
+    method void checkWallCollision() 
+    {
+        if (direction = 1) 
+        {
+            if ((x + WIDTH) > 511) 
+            {
+                do stop();
+            }
+        }
+        else 
+        {
+            if ((x - WIDTH) < 0) 
+            {
+                do stop();
+            }
+        }
+        return;
+    }
+    
+    /** Changes direction */
+    method void changeDirection()
+    {
+        var char currentKey;
+        let currentKey = Keyboard.keyPressed();
+    
+        if (currentKey = 132)
+        {
+            let direction = 1;
+        }
+        else
+        {
+            if (currentKey = 130)
+            {
+               let direction = -1;
+            }
+        }
+        return;
+    }
+
+    /** Updates the memory address location */
+    method void updateLocation()
+    {
+        let location = (32 * y) + (x / 16);
+        return;
+    }
+
+    /** Stops Tank movement */
+    method void stop()
+    {
+        let direction = 0;
+        return;
+    }
+
+    /** Instantiate a Bullet and fire it straight up */
+    method Bullet fire()
+    {
+        var Bullet bullet;
+        var int bulletX;
+        
+        // Need to calculate bulletX because we're ~pixel-perfect on the bullet placement
+        // Whereas tank will be in-between every 16-bits
+        let bulletX = ((x / 16) * 16) + 7; // +7 to get to barrel placement
+        let bullet = Bullet.new(bulletX, y - 5);
+        return bullet;
+    }
+
+}

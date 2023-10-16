@@ -1,0 +1,118 @@
+/** Implements the Game logic */
+class SpaceInvaderGame
+{
+    field Tank tank; // Player
+    field InvaderList invaders; // All invaders
+    field BulletList bullets; // All bullets
+    field boolean gameOver;
+    field int frameNum;
+    field int destroyedInvaders;
+
+    constructor SpaceInvaderGame new()
+    {
+        let tank = Tank.new();
+        // Initialize empty lists
+        let invaders = InvaderList.new(null, null);
+        let bullets = BulletList.new(null, null);
+        return this;
+    }
+
+    /** Dispose of game and all it's component parts */
+    method void dispose()
+    {
+        do tank.dispose();
+        do invaders.dispose();
+        do bullets.dispose();
+
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Accessors */
+    method Tank getTank() { return tank; }
+    method InvaderList getInvaders() { return invaders; }
+    method void setInvaders(InvaderList newInvaders) { let invaders = newInvaders; return; }
+    method BulletList getBullets() { return bullets; }
+    method void setBullets(BulletList newBullets) { let bullets = newBullets; return; }
+
+    /** Update game state */
+    method void updateState()
+    {
+        var BulletList iterBullets;
+        var boolean removed;
+
+        do tank.move();
+        do invaders.move();
+        do bullets.move();
+
+        // Firing a new bullet
+        if (Keyboard.keyPressed() = 32)
+        {
+            do bullets.add(tank.fire());
+        }
+        
+        // Checking all bullets/invaders for collisions
+        // If the checked bullet is removed, re-check, as the node will have been moved up
+        let iterBullets = bullets;
+        while (~(iterBullets = null))
+        {
+            let removed = CollisionChecker.checkBulletCollisions(iterBullets, bullets, invaders);
+            if (~(removed))
+            {
+                let iterBullets = iterBullets.getNext();
+            }
+            else
+            {
+                let destroyedInvaders = destroyedInvaders + 1;
+            }
+        }
+        
+        // Generate new invaders every 10 frames
+        if (MathExtensions.mod(frameNum, 10) = 0)
+        {
+            do generateInvader();
+        }
+
+        // Check if the game is over because an invader has landed
+        if (CollisionChecker.checkInvadersLanded(invaders))
+        {
+            let gameOver = true;
+        }
+        
+        let frameNum = frameNum + 1;
+
+        // Determines the speed of the game
+        // If set to 0, the game will move waaaaay too fast
+        do Sys.wait(150);
+            
+        return;
+    }
+
+    // TODO: Run game infinitely until a spaceship lands signifiying a loss
+    method void run()
+    {
+        while (~gameOver)
+        {
+            do updateState();
+            do Renderer.renderState(tank, bullets, invaders);
+        }
+        do Renderer.renderGameOver(destroyedInvaders);
+        return;
+    }
+
+    /** Generate new invaders using frameNum to determine initial x position */
+    method void generateInvader()
+    {
+        var int x;
+
+        // Not really a great random number generator, but works okay
+        // Peek at stack pointer, plus do some other calculations
+        let x = (frameNum + Memory.peek(0)) * (frameNum / 3);
+        
+        // fit comfortably within the screen width
+        let x = MathExtensions.mod(x, 500); 
+        
+        do invaders.add(Invader.new(x, 0));
+        return;
+    }
+}

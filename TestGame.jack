@@ -1,0 +1,16 @@
+class TestGame
+{
+    function void testGameCollisions()
+    {
+        var SpaceInvaderGame game;
+        var InvaderList invaders;
+        let game = SpaceInvaderGame.new();
+
+        do game.setInvaders(InvaderList.new(Invader.new(100,200), null));
+
+        do game.run();
+        do Sys.halt();
+
+        return;
+    }
+}
