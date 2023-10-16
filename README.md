@@ -33,7 +33,7 @@ There are some additional classes and methods I used for testing/development suc
 
 I've also made some design/logic decisions that are probably not best practice.  One such example is having my LinkedList `add` method always add at index 1 instead of at index 0 or the end of the list.  It was honestly just easier/faster to implement it that way.
 
-Another example is that I've created both `BulletList` and `InvaderList` and there is a lot of repeat code between them.  There probably is a way to have made it a generic `LinkedList` instead, but I chose not to pursure that for 2 main reasons:
+Another example is that I've created both `BulletList` and `InvaderList` and there is a lot of repeat code between them.  There probably is a way to have made it a generic `LinkedList` instead, but I chose not to pursue that for 2 main reasons:
 
 1. The purpose of this program was not really to become an expert in the Jack programming language.  The course states that this project's purpose is to help us familiarize ourselves with the Jack language since we'll be building a compiler for it later.
 2. The game works as-is; I did not want to "waste" a lot of time trying to perfect something that I will likely never use again.
